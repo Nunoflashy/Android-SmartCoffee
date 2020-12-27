@@ -20,6 +20,20 @@
         app:srcCompat="@drawable/smartcoffeetemplatepage" />
 
     <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sitka_italic"
+        android:onClick="RemoveUser"
+        android:text="Remover"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.607"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.933" />
+
+    <TextView
         android:id="@+id/tvEstado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,27 +97,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.428" />
 
-    <Button
-        android:id="@+id/btnVoltar"
-        android:layout_width="169dp"
-        android:layout_height="39dp"
-        android:layout_marginBottom="32dp"
-        android:backgroundTint="#FFFFFF"
-        android:backgroundTintMode="src_atop"
-        android:bufferType="normal"
-        android:fontFamily="@font/sitka_italic"
-        android:onClick="StartActivityListClientes"
-        android:text="Voltar"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="#464646"
-        android:theme="@style/Theme.AppCompat"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tbPassword"
-        app:layout_constraintVertical_bias="0.235" />
-
     <TextView
         android:id="@+id/detalhes"
         android:layout_width="wrap_content"
@@ -120,4 +113,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.278" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sitka_italic"
+        android:onClick="ToggleBlockUser"
+        android:text="Bloquear"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.165"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.933" />
 </androidx.constraintlayout.widget.ConstraintLayout>

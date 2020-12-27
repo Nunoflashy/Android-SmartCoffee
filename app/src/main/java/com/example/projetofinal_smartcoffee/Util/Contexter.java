@@ -2,14 +2,20 @@ package com.example.projetofinal_smartcoffee.Util;
 
 import android.content.Context;
 
-public class ContextManager {
-    private static Context _ctx;
-
+public class Contexter {
+    private static Context Ctx;
     public static void SetContext(Context ctx) {
-        _ctx = ctx;
+        Ctx = ctx;
+    }
+    protected static Context GetContext() {
+        return Ctx;
     }
 
-    protected static Context GetContext() {
-        return _ctx;
+    private Context ctx;
+    public void setContext(Context ctx) {
+        this.ctx = ctx;
+    }
+    protected Context getContext() {
+        return ctx;
     }
 }

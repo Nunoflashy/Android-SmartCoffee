@@ -6,7 +6,7 @@ import android.widget.ListView;
 
 import java.util.List;
 
-public class ListViewUtil extends ContextManager {
+public class ListViewUtil extends Contexter {
 
     private ListView list;
 

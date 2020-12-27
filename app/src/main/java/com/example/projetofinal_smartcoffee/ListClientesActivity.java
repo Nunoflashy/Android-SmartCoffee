@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.projetofinal_smartcoffee.Database.ClienteDB;
+import com.example.projetofinal_smartcoffee.Database.UserDatabase;
 import com.example.projetofinal_smartcoffee.Util.ListViewUtil;
 import com.example.projetofinal_smartcoffee.Util.MessageBox;
 
@@ -18,33 +19,38 @@ import java.util.ArrayList;
 public class ListClientesActivity extends AppCompatActivity {
 
     ListView list;
-    ArrayAdapter<Cliente> adapter;
+    //ArrayAdapter<Cliente> adapter;
     ArrayList<Cliente> clientes = new ArrayList<>();
+
+    ArrayAdapter<User> adapter;
+    ArrayList<User> users = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_clientes);
 
-        list = findViewById(R.id.list);
-        ClienteDB.Create();
+        UserDatabase users = new UserDatabase(this, "db_SmartCoffee");
+        users.open();
 
-        MessageBox msg = new MessageBox(this);
-        for(Cliente c : ClienteDB.GetAll()) {
-            msg.show("Cliente Info", c.getInfo(), 0);
-        }
+        list = findViewById(R.id.list);
+
+//        MessageBox msg = new MessageBox(this);
+//        for(User u : users.getAll()) {
+//            msg.show("Cliente Info", u.getInfo(), 0);
+//        }
 
 //        adapter = new ArrayAdapter<>(
 //                getApplicationContext(),
 //                android.R.layout.simple_list_item_1,
-//                ClienteDB.GetAll()
+//                users.getAll()
 //        );
 
-        ListViewUtil.AddItems(list, ClienteDB.GetAll());
+        ListViewUtil.AddItems(list, users.getAll());
         list.setOnItemClickListener((adapterView, view, i, l) -> {
-            Cliente c = (Cliente)list.getItemAtPosition(i);
+            User u = (User)list.getItemAtPosition(i);
             Intent it = new Intent(getApplicationContext(), ClienteDetails.class);
-            it.putExtra("cliente", c);
+            it.putExtra("user", u);
             startActivity(it);
         });
 

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.projetofinal_smartcoffee.Database.ClienteDB;
+import com.example.projetofinal_smartcoffee.Database.UserDatabase;
 import com.example.projetofinal_smartcoffee.Util.MessageBox;
 
 
@@ -25,19 +26,6 @@ public class RegisterActivity extends AppCompatActivity {
         tbMail      = findViewById(R.id.tbMail);
         tbPass      = findViewById(R.id.tbPass);
         tbRepass    = findViewById(R.id.tbRepass);
-    }
-
-    private void InitDatabase() {
-        db = openOrCreateDatabase("db_SmartCoffee", Context.MODE_PRIVATE, null);
-        CreateDatabase();
-    }
-
-    private void CreateDatabase() {
-        db.execSQL("CREATE TABLE IF NOT EXISTS cliente(" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "nome VARCHAR NOT NULL, " +
-                "mail VARCHAR NOT NULL, " +
-                "password VARCHAR NOT NULL);");
     }
 
     private void CreateCliente(Cliente c, String repass) {
@@ -65,21 +53,30 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void EfetuarRegisto(View v) {
-        ClienteDB.Create();
+        UserDatabase users = (UserDatabase)getIntent().getExtras().getSerializable("userDB");
+        users.setContext(this);
+        //users.open();
+
+        /* RegistrationManager reg = new RegistrationManager(userDB);
+           reg.setUser(nome)
+        * */
+
+        //ClienteDB.Create();
 
         String nome     = tbNome.getText().toString();
         String mail     = tbMail.getText().toString();
         String pass     = tbPass.getText().toString();
         String repass   = tbRepass.getText().toString();
 
-        Cliente c = new Cliente(nome, mail, pass);
+        //Cliente c = new Cliente(nome, mail, pass);
+        User u = new User(nome, pass, mail);
 
         MessageBox msg = new MessageBox(this);
 
-        boolean nomeEmpty = c.getNome().isEmpty();
-        boolean mailEmpty = c.getMail().isEmpty();
-        boolean passEmpty = c.getPass().isEmpty();
-        boolean passwordsMatch = c.getPass().equals(repass) && !c.getPass().isEmpty();
+        boolean nomeEmpty = u.getName().isEmpty();
+        boolean mailEmpty = u.getMail().isEmpty();
+        boolean passEmpty = u.getPass().isEmpty();
+        boolean passwordsMatch = u.getPass().equals(repass) && !u.getPass().isEmpty();
 
         if(nomeEmpty) {
             MessageBox.Show("Erro", "O username não pode ser deixado em branco!", R.drawable.error_flat);
@@ -101,25 +98,13 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+        users.addUser(u);
 
-        ClienteDB.AddCliente(c);
-        MessageBox.Show("Registado com sucesso!", String.format("A sua conta %s foi registada com sucesso!\nBem-Vindo à Smart Coffee!", c.getNome()), R.drawable.information_icon_svg,
+        MessageBox.Show("Registado com sucesso!", String.format("A sua conta %s foi registada com sucesso!\nBem-Vindo à Smart Coffee!", u.getName()), R.drawable.information_icon_svg,
             (dialogInterface, i) -> {
-                ClienteDB.Close();
+                users.close();
                 StartActivityLogin();
         });
-//        if(passwordsMatch) {
-//            try {
-//                ClienteDB.AddCliente(c);
-//            }
-//            catch(ClienteExistsException ex) {
-//                msg.show("Cliente já existe", ex.getMessage(), 0);
-//                //msg.show("Cliente já existe", ex.getMessage(), 0);
-//            }
-//            finally {
-//                ClienteDB.Close();
-//            }
-//        }
     }
 
     private void StartActivityLogin() {
@@ -133,6 +118,5 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         BindControls();
-        InitDatabase();
     }
 }

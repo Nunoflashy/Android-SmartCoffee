@@ -120,6 +120,8 @@
         android:layout_height="36dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/edittextbg"
+        android:drawableStart="@drawable/ic_baseline_email_24"
+        android:drawableLeft="@drawable/ic_baseline_email_24"
         android:ems="10"
         android:fontFamily="@font/sitka_italic"
         android:gravity="start|top"
