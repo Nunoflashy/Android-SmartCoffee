@@ -19,6 +19,33 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/smartcoffeetemplatepage" />
 
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="96px"
+        android:layout_height="96px"
+        android:onClick="ToggleBlockUser"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.377"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.989"
+        app:srcCompat="@drawable/blockicon" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sitka_italic"
+        android:onClick="ToggleBlockUser"
+        android:text="Bloquear"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.372"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.973" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -28,10 +55,10 @@
         android:text="Remover"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.607"
+        app:layout_constraintHorizontal_bias="0.621"
         app:layout_constraintStart_toStartOf="@+id/imageView5"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.933" />
+        app:layout_constraintVertical_bias="0.973" />
 
     <TextView
         android:id="@+id/tvEstado"
@@ -114,17 +141,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.278" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sitka_italic"
-        android:onClick="ToggleBlockUser"
-        android:text="Bloquear"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView5"
-        app:layout_constraintHorizontal_bias="0.165"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="96px"
+        android:layout_height="96px"
+        android:onClick="RemoveUser"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.614"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.933" />
+        app:layout_constraintVertical_bias="0.989"
+        app:srcCompat="@drawable/removeicon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

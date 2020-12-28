@@ -28,8 +28,9 @@ public class ClienteDetails extends AppCompatActivity {
         UserDatabase userDB = new UserDatabase(this, "db_SmartCoffee");
         userDB.setContext(this);
         userDB.open();
+        // DBManager.GetDatabase("userDB");
         MessageBox.SetContext(this);
-        if(!userDB.isUserBlocked(u.getName())) {
+        if(!userDB.isUserBlocked(u)) {
             MessageBox.Show("Info", String.format("Tem a certeza que pretende bloquear o utilizador %s?", u.getName()), R.drawable.information_icon_svg, "Bloquear", "Cancelar",
                     (dialogInterface, i) -> {
                         userDB.blockUser(u);
@@ -87,7 +88,7 @@ public class ClienteDetails extends AppCompatActivity {
         tvID.setText(String.format("ID: %s", u.getID()));
         tvUsername.setText(String.format("Username: %s", u.getName()));
         tvMail.setText(String.format("E-Mail: %s", u.getMail()));
-        tvEstado.setText(String.format("Estado: %s", userDB.isUserBlocked(u.getName()) ? "Bloqueado" : "Normal"));
+        tvEstado.setText(String.format("Estado: %s", userDB.isUserBlocked(u) ? "Bloqueado" : "Normal"));
     }
 
     public void StartActivityListClientes(View v) {

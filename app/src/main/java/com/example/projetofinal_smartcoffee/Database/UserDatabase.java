@@ -92,14 +92,7 @@ public class UserDatabase extends Contexter implements IDatabase, Serializable {
     }
 
     public boolean isUserBlocked(User u) {
-        int status = USERSTATE_NORMAL;
-        Cursor c = db.rawQuery(String.format("SELECT status FROM users WHERE name='%s';", u.getName()),null);
-        Log.d("UserDB", String.valueOf(c.getCount()));
-            if(c.getCount() > 0) {
-                status = c.getInt(c.getColumnIndex("status"));
-                c.close();
-            }
-        return status == USERSTATE_BLOCKED;
+        return isUserBlocked(u.getName());
     }
 
     public boolean isUserBlocked(String username) {

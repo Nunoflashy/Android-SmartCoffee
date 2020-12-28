@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.example.projetofinal_smartcoffee.Database.ClienteDB;
 import com.example.projetofinal_smartcoffee.Database.UserDatabase;
 import com.example.projetofinal_smartcoffee.Util.MessageBox;
+import com.example.projetofinal_smartcoffee.Util.RegistrationManager;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -53,58 +54,32 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void EfetuarRegisto(View v) {
-        UserDatabase users = (UserDatabase)getIntent().getExtras().getSerializable("userDB");
-        users.setContext(this);
-        //users.open();
+        UserDatabase userDB = (UserDatabase)getIntent().getExtras().getSerializable("userDB");
+        userDB.setContext(this);
+        userDB.open();
 
-        /* RegistrationManager reg = new RegistrationManager(userDB);
-           reg.setUser(nome)
-        * */
-
-        //ClienteDB.Create();
-
-        String nome     = tbNome.getText().toString();
+        String user     = tbNome.getText().toString();
         String mail     = tbMail.getText().toString();
         String pass     = tbPass.getText().toString();
         String repass   = tbRepass.getText().toString();
 
-        //Cliente c = new Cliente(nome, mail, pass);
-        User u = new User(nome, pass, mail);
+        RegistrationManager reg = new RegistrationManager(userDB);
+        reg.setDetails(user, mail, pass, repass);
 
-        MessageBox msg = new MessageBox(this);
-
-        boolean nomeEmpty = u.getName().isEmpty();
-        boolean mailEmpty = u.getMail().isEmpty();
-        boolean passEmpty = u.getPass().isEmpty();
-        boolean passwordsMatch = u.getPass().equals(repass) && !u.getPass().isEmpty();
-
-        if(nomeEmpty) {
-            MessageBox.Show("Erro", "O username não pode ser deixado em branco!", R.drawable.error_flat);
-            return;
+        MessageBox.SetContext(this);
+        User u = new User(user, pass, mail);
+        if(reg.isRegistrationSuccessful()) {
+            // O registo foi bem sucedido
+            MessageBox.Show("Registado com sucesso!", String.format("A sua conta %s foi registada com sucesso!\nBem-Vindo à Smart Coffee!", u.getName()), R.drawable.information_icon_svg,
+                (dialogInterface, i) -> {
+                    userDB.addUser(u);
+                    userDB.close();
+                    StartActivityLogin();
+                });
+        } else {
+            // O registo falhou
+            MessageBox.Show("Erro", reg.getError(), R.drawable.error_flat);
         }
-
-        if(mailEmpty) {
-            MessageBox.Show("Erro", "O mail não pode ser deixado em branco!", R.drawable.error_flat);
-            return;
-        }
-
-        if(passEmpty) {
-            MessageBox.Show("Erro", "A password não pode ser deixada em branco!", R.drawable.error_flat);
-            return;
-        }
-
-        if(!passwordsMatch) {
-            MessageBox.Show("Erro", "As passwords não coincidem!", R.drawable.error_flat);
-            return;
-        }
-
-        users.addUser(u);
-
-        MessageBox.Show("Registado com sucesso!", String.format("A sua conta %s foi registada com sucesso!\nBem-Vindo à Smart Coffee!", u.getName()), R.drawable.information_icon_svg,
-            (dialogInterface, i) -> {
-                users.close();
-                StartActivityLogin();
-        });
     }
 
     private void StartActivityLogin() {

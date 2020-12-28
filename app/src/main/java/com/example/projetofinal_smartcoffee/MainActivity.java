@@ -13,7 +13,7 @@ import com.example.projetofinal_smartcoffee.Util.MessageBox;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int SPLASH_TIME = 1;
+    private int SPLASH_TIME = 4000;
 
     private void StartSplash() {
         new Handler().postDelayed(() -> {
