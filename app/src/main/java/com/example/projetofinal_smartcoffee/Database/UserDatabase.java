@@ -50,6 +50,10 @@ public class UserDatabase extends Contexter implements IDatabase, Serializable {
         db.execSQL("DROP TABLE IF EXISTS users");
     }
 
+    public boolean isOpen() {
+        return isOpen;
+    }
+
     private String passToHash(String pw) {
         // TODO: Implementar hash function na password
         return pw;

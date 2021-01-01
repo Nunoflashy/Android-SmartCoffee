@@ -11,22 +11,11 @@ import com.example.projetofinal_smartcoffee.User;
 
 import java.util.List;
 
-public class AuthenticationManager {
+public class AuthenticationManager extends Authenticator {
     private String user, pass;
-    private String error = "";
-
-    private UserDatabase db;
 
     public AuthenticationManager(UserDatabase db) {
-        setDatabase(db);
-    }
-
-    public void setDatabase(UserDatabase db) {
-        this.db = db;
-    }
-
-    public UserDatabase getDatabase() {
-        return db;
+        super.setDatabase(db);
     }
 
     public String getUser() {
@@ -39,10 +28,10 @@ public class AuthenticationManager {
 
     public boolean isEmpty() {
         if(user.isEmpty()) {
-            concatError("Insira o nome de utilizador.");
+            concatError(getMessage("userEmpty"));
         }
         if(pass.isEmpty()) {
-            concatError("Insira a password.");
+            concatError(getMessage("passEmpty"));
         }
 
         return user.isEmpty() || pass.isEmpty();
@@ -53,25 +42,24 @@ public class AuthenticationManager {
         this.pass = pass;
     }
 
-    private void setError(String msg) {
-        error = msg + '\n';
-    }
-
-    private void concatError(String msg) {
-        error += msg + '\n';
-    }
-
-    public String getError() { return error; }
-
     public boolean isLoginSuccessful() {
         boolean retval = false;
+
+        if(isEmpty()) {
+            return false;
+        }
+
+        if(!db.userExists(user)) {
+            setError(getMessage("userNoExist"));
+            return false;
+        }
 
         for(User u : db.getAll()) {
             // TODO: Computar o hash da password no login com o da DB
             if (user.equals(u.getName()) && pass.equals(u.getPass())) {
                 // Verificar se a conta se encontra bloqueada
                 if(db.isUserBlocked(u.getName())) {
-                    setError("Esta conta encontra-se bloqueada.");
+                    setError(getMessage("accountBlocked"));
                     retval = false;
                     break;
                 }
@@ -79,7 +67,7 @@ public class AuthenticationManager {
                 break;
             } else {
                 retval = false;
-                setError("Os detalhes sao invalidos!");
+                setError(getMessage("invalidAuth"));
             }
         }
         return retval;

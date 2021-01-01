@@ -3,18 +3,15 @@ package com.example.projetofinal_smartcoffee.Util;
 import com.example.projetofinal_smartcoffee.Database.UserDatabase;
 import com.example.projetofinal_smartcoffee.User;
 
-public class RegistrationManager {
-    private UserDatabase db;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
+public class RegistrationManager extends Authenticator {
     private String user, mail, pass, repass;
-    private String error = "";
 
     public RegistrationManager(UserDatabase db) {
-        setDatabase(db);
-    }
-
-    public void setDatabase(UserDatabase db) {
-        this.db = db;
+        super.setDatabase(db);
     }
 
     public void setDetails(String user, String mail, String pass, String repass) {
@@ -24,25 +21,15 @@ public class RegistrationManager {
         this.repass = repass;
     }
 
-    private void setError(String msg) {
-        error = msg + '\n';
-    }
-
-    private void concatError(String msg) {
-        error += msg + '\n';
-    }
-
-    public String getError() { return error; }
-
-    public boolean isEmpty() {
+    private boolean isEmpty() {
         if(user.isEmpty()) {
-            concatError("O user não pode estar vazio!");
+            concatError(getMessage("userEmpty"));
         }
         if(mail.isEmpty()) {
-            concatError("O mail não pode estar vazio!");
+            concatError(getMessage("mailEmpty"));
         }
         if(pass.isEmpty()) {
-            concatError("A password não pode estar vazia!");
+            concatError(getMessage("passEmpty"));
         }
         return user.isEmpty() || mail.isEmpty() || pass.isEmpty();
     }
@@ -55,11 +42,11 @@ public class RegistrationManager {
             return false;
         }
         if(!pass.equals(repass)) {
-            concatError("As passwords não coincidem!");
+            concatError(getMessage("passNoMatch"));
             return false;
         }
         if(db.userExists(user)) {
-            setError("Este user já se encontra registado!");
+            setError(getMessage("userExists"));
             retval = false;
         }
 

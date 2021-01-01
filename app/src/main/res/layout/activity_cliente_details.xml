@@ -20,11 +20,11 @@
         app:srcCompat="@drawable/smartcoffeetemplatepage" />
 
     <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="96px"
-        android:layout_height="96px"
-        android:onClick="ToggleBlockUser"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        android:id="@+id/imgBlock"
+        android:layout_width="72px"
+        android:layout_height="72px"
+        android:onClick="BlockUser_OnClick"
+        app:layout_constraintBottom_toTopOf="@+id/tvBlock"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.377"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,11 +33,11 @@
         app:srcCompat="@drawable/blockicon" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvBlock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sitka_italic"
-        android:onClick="ToggleBlockUser"
+        android:onClick="BlockUser_OnClick"
         android:text="Bloquear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView5"
@@ -47,11 +47,11 @@
         app:layout_constraintVertical_bias="0.973" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvRemove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sitka_italic"
-        android:onClick="RemoveUser"
+        android:onClick="RemoveUser_OnClick"
         android:text="Remover"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView5"
@@ -142,11 +142,11 @@
         app:layout_constraintVertical_bias="0.278" />
 
     <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="96px"
-        android:layout_height="96px"
-        android:onClick="RemoveUser"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        android:id="@+id/imgRemove"
+        android:layout_width="72px"
+        android:layout_height="72px"
+        android:onClick="RemoveUser_OnClick"
+        app:layout_constraintBottom_toTopOf="@+id/tvBlock"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.614"
         app:layout_constraintStart_toStartOf="parent"
