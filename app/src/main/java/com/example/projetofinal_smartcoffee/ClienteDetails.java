@@ -9,13 +9,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.projetofinal_smartcoffee.Database.DatabaseManager;
 import com.example.projetofinal_smartcoffee.Database.UserDatabase;
 import com.example.projetofinal_smartcoffee.Util.MessageBox;
 
 public class ClienteDetails extends AppCompatActivity {
 
     TextView tvID, tvUsername, tvMail, tvEstado, tvBlock, tvRemove;
-    UserDatabase userDB;
+    UserDatabase userDB = DatabaseManager.GetDB("userDB");
     User u;
 
     private void BindControls() {
@@ -75,7 +76,7 @@ public class ClienteDetails extends AppCompatActivity {
         Intent it = getIntent();
         u = (User)it.getExtras().getSerializable("user");
 
-        userDB = (UserDatabase)getIntent().getExtras().getSerializable("userDB");
+        //userDB = (UserDatabase)getIntent().getExtras().getSerializable("userDB");
         userDB.setContext(this);
         userDB.open();
 

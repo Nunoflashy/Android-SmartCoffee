@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
             Intent it = new Intent(MainActivity.this, LoginActivity.class);
             it.putExtra("userDB", new UserDatabase("db_SmartCoffee"));
-            DatabaseManager.AddUserDB("userDB", new UserDatabase("db_SmartCoffee"));
+            DatabaseManager.AddDB("userDB", new UserDatabase("db_SmartCoffee"));
             startActivity(it);
             finish();
         }, SPLASH_TIME);

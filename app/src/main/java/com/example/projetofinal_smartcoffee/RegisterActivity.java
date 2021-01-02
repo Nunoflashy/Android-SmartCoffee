@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.projetofinal_smartcoffee.Database.ClienteDB;
+import com.example.projetofinal_smartcoffee.Database.DatabaseManager;
 import com.example.projetofinal_smartcoffee.Database.UserDatabase;
 import com.example.projetofinal_smartcoffee.Util.MessageBox;
 import com.example.projetofinal_smartcoffee.Util.RegistrationManager;
@@ -22,7 +23,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText tbNome, tbMail, tbPass, tbRepass;
 
-    UserDatabase userDB = null;
+    //UserDatabase userDB = null;
+    UserDatabase userDB = DatabaseManager.GetDB("userDB");
 
     private void BindControls() {
         tbNome      = findViewById(R.id.tbNome);
@@ -67,11 +69,11 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(it);
     }
 
-    @Override
-    public void onBackPressed() {
-        userDB.close();
-        super.onBackPressed();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        userDB.close();
+//        super.onBackPressed();
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         MessageBox.SetContext(this);
 
-        userDB = (UserDatabase)getIntent().getExtras().getSerializable("userDB");
+        //userDB = (UserDatabase)getIntent().getExtras().getSerializable("userDB");
         userDB.setContext(this);
         userDB.open();
 

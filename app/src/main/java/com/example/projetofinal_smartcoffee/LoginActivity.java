@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText tbUsername;
     EditText tbPassword;
 
-    UserDatabase userDB = DatabaseManager.GetUserDB("userDB");
+    UserDatabase userDB = DatabaseManager.GetDB("userDB");
 
     private void BindControls() {
         tbUsername = findViewById(R.id.tbUsername);
@@ -30,19 +30,23 @@ public class LoginActivity extends AppCompatActivity {
 
     public void StartActivityRegister(View v) {
         Intent it = new Intent(this, RegisterActivity.class);
-        userDB = (UserDatabase)getIntent().getExtras().getSerializable("userDB");
-        it.putExtra("userDB", userDB);
+//        userDB = (UserDatabase)getIntent().getExtras().getSerializable("userDB");
+//        it.putExtra("userDB", userDB);
         startActivity(it);
     }
 
     public void StartActivityListClientes(View v) {
         Intent it = new Intent(this, ListClientesActivity.class);
-        userDB = (UserDatabase)getIntent().getExtras().getSerializable("userDB");
-        it.putExtra("userDB", userDB);
+//        userDB = (UserDatabase)getIntent().getExtras().getSerializable("userDB");
+//        it.putExtra("userDB", userDB);
         startActivity(it);
     }
 
     public void LoginPerformed(View v) {
+        //userDB = (UserDatabase)getIntent().getExtras().getSerializable("userDB");
+//        userDB.setContext(this);
+//        userDB.open();
+        MessageBox.SetContext(this);
         String user = tbUsername.getText().toString();
         String pass = tbPassword.getText().toString();
 
@@ -75,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         MessageBox.SetContext(this);
 
         //userDB = (UserDatabase)getIntent().getExtras().getSerializable("userDB");
+        //userDB = DatabaseManager.GetUserDB("userDB");
         userDB.setContext(this);
         userDB.open();
 

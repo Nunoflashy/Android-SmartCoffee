@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.projetofinal_smartcoffee.Database.ClienteDB;
+import com.example.projetofinal_smartcoffee.Database.DatabaseManager;
 import com.example.projetofinal_smartcoffee.Database.UserDatabase;
 import com.example.projetofinal_smartcoffee.Util.ListViewUtil;
 import com.example.projetofinal_smartcoffee.Util.MessageBox;
@@ -27,7 +28,8 @@ public class ListClientesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_clientes);
 
-        UserDatabase userDB = new UserDatabase(this, "db_SmartCoffee");
+        UserDatabase userDB = DatabaseManager.GetDB("userDB");
+        //UserDatabase userDB = new UserDatabase(this, "db_SmartCoffee");
         userDB.open();
 
         list = findViewById(R.id.list);
@@ -49,7 +51,7 @@ public class ListClientesActivity extends AppCompatActivity {
         list.setOnItemClickListener((adapterView, view, i, l) -> {
             User u = (User)list.getItemAtPosition(i);
             Intent it = new Intent(getApplicationContext(), ClienteDetails.class);
-            it.putExtra("userDB", getIntent().getExtras().getSerializable("userDB"));
+            //it.putExtra("userDB", getIntent().getExtras().getSerializable("userDB"));
             it.putExtra("user", u);
             startActivity(it);
         });
