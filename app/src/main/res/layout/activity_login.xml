@@ -35,6 +35,7 @@
         android:textAllCaps="false"
         android:textColor="#464646"
         android:theme="@style/Theme.AppCompat"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -130,23 +131,6 @@
         android:textColor="#464646"
         android:visibility="visible"
         tools:layout_editor_absoluteX="235dp"
-        tools:layout_editor_absoluteY="573dp" />
-
-    <Button
-        android:id="@+id/btnDeleteDB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#BCBCBC"
-        android:backgroundTintMode="src_atop"
-        android:bufferType="normal"
-        android:fontFamily="@font/sitka_italic"
-        android:onClick="DeleteDB"
-        android:text="Delete DB"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="#464646"
-        android:visibility="invisible"
-        tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="573dp" />
 
     <TextView

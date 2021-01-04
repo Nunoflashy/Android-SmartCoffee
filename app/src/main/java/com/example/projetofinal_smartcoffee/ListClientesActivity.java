@@ -4,24 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.projetofinal_smartcoffee.Database.ClienteDB;
 import com.example.projetofinal_smartcoffee.Database.DatabaseManager;
 import com.example.projetofinal_smartcoffee.Database.UserDatabase;
-import com.example.projetofinal_smartcoffee.Util.ListViewUtil;
-import com.example.projetofinal_smartcoffee.Util.MessageBox;
-
-import java.util.ArrayList;
 
 public class ListClientesActivity extends AppCompatActivity {
 
     ListView list;
     ArrayAdapter<User> adapter;
-    ArrayList<User> users = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +21,6 @@ public class ListClientesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_clientes);
 
         UserDatabase userDB = DatabaseManager.GetDB("userDB");
-        //UserDatabase userDB = new UserDatabase(this, "db_SmartCoffee");
         userDB.open();
 
         list = findViewById(R.id.list);
@@ -45,13 +36,9 @@ public class ListClientesActivity extends AppCompatActivity {
                 userDB.getAll()
         );
 
-
-
-        //ListViewUtil.AddItems(list, userDB.getAll());
         list.setOnItemClickListener((adapterView, view, i, l) -> {
             User u = (User)list.getItemAtPosition(i);
-            Intent it = new Intent(getApplicationContext(), ClienteDetails.class);
-            //it.putExtra("userDB", getIntent().getExtras().getSerializable("userDB"));
+            Intent it = new Intent(this, ClienteDetailsActivity.class);
             it.putExtra("user", u);
             startActivity(it);
         });

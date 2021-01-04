@@ -23,7 +23,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText tbNome, tbMail, tbPass, tbRepass;
 
-    //UserDatabase userDB = null;
     UserDatabase userDB = DatabaseManager.GetDB("userDB");
 
     private void BindControls() {
@@ -50,18 +49,33 @@ public class RegisterActivity extends AppCompatActivity {
 
         User u = new User(user, pass, mail);
 
+        userDB.open();
+
+        MessageBox msg = new MessageBox(this);
+
         if(reg.isRegistrationSuccessful()) {
-            // O registo foi bem sucedido
-            MessageBox.Show("Registado com sucesso!", String.format("A sua conta %s foi registada com sucesso!\nBem-Vindo à Smart Coffee!", u.getName()), R.drawable.information_icon_svg,
-                (dialogInterface, i) -> {
-                    userDB.addUser(u);
-                    userDB.close();
-                    StartActivityLogin();
-                });
+            msg.show("Registo efetuado com sucesso!", String.format("A sua conta %s foi registada com sucesso!\nBem-Vindo à Smart Coffee!", u.getName()), R.drawable.information_icon_svg,
+            (dialogInterface, i) -> {
+                userDB.addUser(u);
+                userDB.close();
+                StartActivityLogin();
+            });
         } else {
-            // O registo falhou
-            MessageBox.Show("Erro", reg.getError(), R.drawable.error_flat);
+            msg.show("Erro", reg.getError(), R.drawable.error_flat);
         }
+
+//        if(reg.isRegistrationSuccessful()) {
+//            // O registo foi bem sucedido
+//            MessageBox.Show("Registado com sucesso!", String.format("A sua conta %s foi registada com sucesso!\nBem-Vindo à Smart Coffee!", u.getName()), R.drawable.information_icon_svg,
+//                (dialogInterface, i) -> {
+//                    userDB.addUser(u);
+//                    userDB.close();
+//                    StartActivityLogin();
+//                });
+//        } else {
+//            // O registo falhou
+//            MessageBox.Show("Erro", reg.getError(), R.drawable.error_flat);
+//        }
     }
 
     private void StartActivityLogin() {
@@ -69,25 +83,10 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(it);
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        userDB.close();
-//        super.onBackPressed();
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
-        MessageBox.SetContext(this);
-
-        //userDB = (UserDatabase)getIntent().getExtras().getSerializable("userDB");
-        userDB.setContext(this);
-        userDB.open();
-
         BindControls();
-
-
     }
 }

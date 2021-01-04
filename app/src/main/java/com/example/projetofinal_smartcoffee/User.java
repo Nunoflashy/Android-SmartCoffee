@@ -14,10 +14,8 @@ public class User implements Serializable {
     }
 
     public User(int id, String name, String pass, String mail) {
+        this(name, pass, mail);
         this.id = id;
-        this.name = name;
-        this.pass = pass;
-        this.mail = mail;
     }
 
     public boolean isValid() {

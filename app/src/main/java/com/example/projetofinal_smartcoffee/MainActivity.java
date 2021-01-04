@@ -19,8 +19,6 @@ public class MainActivity extends AppCompatActivity {
     private void StartSplash() {
         new Handler().postDelayed(() -> {
             Intent it = new Intent(MainActivity.this, LoginActivity.class);
-            it.putExtra("userDB", new UserDatabase("db_SmartCoffee"));
-            DatabaseManager.AddDB("userDB", new UserDatabase("db_SmartCoffee"));
             startActivity(it);
             finish();
         }, SPLASH_TIME);
@@ -37,8 +35,9 @@ public class MainActivity extends AppCompatActivity {
         // Setup MsgBox
         MessageBox.SetContext(this);
 
-        // Setup DB
-        ClienteDB.SetContext(getApplicationContext());
+        // Init Databases
+        UserDatabase db = new UserDatabase(getApplicationContext(),"db_SmartCoffee");
+        DatabaseManager.AddDB("userDB", db);
 
         StartSplash();
     }
