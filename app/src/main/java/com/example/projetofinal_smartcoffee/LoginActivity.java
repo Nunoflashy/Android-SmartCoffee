@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             msg.setPositiveButton((dialogInterface, i) -> {
                 // TODO: Detetar tipo de login (Cliente, Admin) e redirecionar para a activity certa.
                 User u = userDB.getUserByName(auth.getUser());
-                userDB.setUserType(u, UserType.Admin);
+                AuthenticationManager.SetAuthenticatedUser(u);
                 if(userDB.isUserAdmin(u)) {
                     // Admin Activity
                     startActivity(new Intent(this, AdminMenuActivity.class).putExtra("admin", u));

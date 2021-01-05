@@ -15,6 +15,7 @@ public class Authenticator {
         error = msg;
     }
 
+
     protected void concatError(String msg) {
         error += msg + '\n';
     }

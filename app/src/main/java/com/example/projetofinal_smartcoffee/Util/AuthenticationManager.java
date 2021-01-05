@@ -1,11 +1,13 @@
 package com.example.projetofinal_smartcoffee.Util;
 
+import android.security.keystore.UserNotAuthenticatedException;
 import android.util.Log;
 
 import com.example.projetofinal_smartcoffee.Cliente;
 import com.example.projetofinal_smartcoffee.Database.ClienteDB;
 import com.example.projetofinal_smartcoffee.Database.IDatabase;
 import com.example.projetofinal_smartcoffee.Database.UserDatabase;
+import com.example.projetofinal_smartcoffee.Exception.InvalidUserException;
 import com.example.projetofinal_smartcoffee.R;
 import com.example.projetofinal_smartcoffee.User;
 
@@ -24,6 +26,18 @@ public class AuthenticationManager extends Authenticator {
 
     public String getPass() {
         return pass;
+    }
+
+    public static User GetAuthenticatedUser() {
+        if(authUser == null) {
+            throw new InvalidUserException("There is no authenticated user!");
+        }
+        return authUser;
+    }
+    private static User authUser = null;
+
+    public static void SetAuthenticatedUser(User u) {
+        authUser = u;
     }
 
     public boolean isEmpty() {

@@ -129,7 +129,7 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="#464646"
-        android:visibility="visible"
+        android:visibility="invisible"
         tools:layout_editor_absoluteX="235dp"
         tools:layout_editor_absoluteY="573dp" />
 

@@ -28,6 +28,10 @@ public class AdminMenuActivity extends AppCompatActivity {
         startActivity(new Intent(this, ListClientesActivity.class));
     }
 
+    public void StartActivityAdminDashboard(View v) {
+        startActivity(new Intent(this, AdminDashboardActivity.class));
+    }
+
     public void StartActivityLogin(View v) {
         startActivity(new Intent(this, LoginActivity.class));
     }

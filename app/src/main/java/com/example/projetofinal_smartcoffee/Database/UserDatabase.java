@@ -16,8 +16,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDatabase extends Contexter implements IDatabase, Serializable {
-    public UserDatabase() {}
+public class UserDatabase extends Contexter implements IDatabase {
 
     public UserDatabase(String dbName) {
         this.name = dbName;
@@ -181,7 +180,7 @@ public class UserDatabase extends Contexter implements IDatabase, Serializable {
 
     public boolean isUserAdmin(User u) {
         if(!userExists(u.getName())) {
-            return false;
+            throw new UserNotFoundException();
         }
         Cursor c = db.rawQuery(String.format("SELECT * FROM users WHERE id='%s';", u.getID()),null);
         int type = USERTYPE_NORMAL;

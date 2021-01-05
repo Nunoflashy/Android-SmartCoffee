@@ -1,26 +1,36 @@
 package com.example.projetofinal_smartcoffee;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.projetofinal_smartcoffee.Database.DatabaseManager;
 import com.example.projetofinal_smartcoffee.Database.UserDatabase;
+import com.example.projetofinal_smartcoffee.Database.UserType;
+import com.example.projetofinal_smartcoffee.Util.AuthenticationManager;
 import com.example.projetofinal_smartcoffee.Util.MessageBox;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ClienteDetailsActivity extends AppCompatActivity {
 
     TextView tvID, tvUsername, tvMail, tvEstado, tvBlock, tvRemove;
-    Spinner spUserType;
+    RadioGroup radioUserTypes;
+    RadioButton radioCustomer, radioAdmin;
     UserDatabase userDB = DatabaseManager.GetDB("userDB");
     User u;
+
+    BottomNavigationView menubar;
 
     private void BindControls() {
         tvID       = findViewById(R.id.tvID);
@@ -29,23 +39,70 @@ public class ClienteDetailsActivity extends AppCompatActivity {
         tvEstado   = findViewById(R.id.tvEstado);
         tvBlock    = findViewById(R.id.tvBlock);
         tvRemove   = findViewById(R.id.tvRemove);
-        spUserType = findViewById(R.id.spUserType);
+        radioUserTypes = findViewById(R.id.radioUserTypes);
+        radioCustomer = findViewById(R.id.radioCustomer);
+        radioAdmin    = findViewById(R.id.radioAdmin);
+
+        //menubar = findViewById(R.id.menubar);
+        //menubar.setOnNavigationItemSelectedListener(onItemSelected);
     }
 
-    private String[] userTypes = new String[] {"Cliente", "Administrador"};
+    private BottomNavigationView.OnNavigationItemSelectedListener onItemSelected =
+        item -> {
+            switch(item.getItemId()) {
+                case R.id.nav_overview:
+                    startActivity(new Intent(this, LoginActivity.class));
+                break;
+                case R.id.nav_listUsers:
+                    startActivity(new Intent(this, LoginActivity.class));
+                break;
+                case R.id.nav_settings:
+                    startActivity(new Intent(this, LoginActivity.class));
+                break;
+                case R.id.nav_logout:
+                    startActivity(new Intent(this, LoginActivity.class));
+                break;
 
+            }
+            return true;
+        };
+
+    private void updateUserType() {
+        if(userDB.isUserAdmin(u)) {
+            radioAdmin.setChecked(true);
+        } else {
+            radioCustomer.setChecked(true);
+        }
+    }
 
     private void init() {
-        ArrayAdapter<String> userAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, userTypes);
-        spUserType.setAdapter(userAdapter);
-//        spUserType.setOnItemClickListener((parent, view, i, id) -> {
-//            String type = (String)spUserType.getSelectedItem();
-//        });
+        updateUserType();
+        radioUserTypes.setOnCheckedChangeListener((userTypes, radioId) -> {
+            final int RADIO_CUSTOMER = R.id.radioCustomer;
+            final int RADIO_ADMIN    = R.id.radioAdmin;
+
+            if(AuthenticationManager.GetAuthenticatedUser().getID() == u.getID()) {
+                // O utilizador selecionado é o utilizador que fez login
+                MessageBox msg = new MessageBox(this);
+                msg.show("Erro", "Não é possivel mudar o tipo de utilizador da própria conta!", R.drawable.error_flat);
+                return;
+            }
+
+            switch(radioId) {
+                case RADIO_CUSTOMER: userDB.setUserType(u, UserType.Normal); break;
+                case RADIO_ADMIN:    userDB.setUserType(u, UserType.Admin); break;
+            }
+        });
     }
 
     public void BlockUser_OnClick(View v) {
         if(!userDB.isUserBlocked(u)) {
             // Estado do User: Normal
+            if(u.getID() == AuthenticationManager.GetAuthenticatedUser().getID()) {
+                MessageBox msg = new MessageBox(this);
+                msg.show("Erro", "Não pode bloquear a própria conta!", R.drawable.error_flat);
+                return;
+            }
             MessageBox.Show("Bloquear", String.format("Tem a certeza que pretende bloquear o utilizador %s?", u.getName()), R.drawable.blockiconred,
             "Bloquear", (dialogInterface, i) -> {
                 userDB.blockUser(u);

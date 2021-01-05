@@ -22,7 +22,7 @@
     <Button
         android:id="@+id/button5"
         android:layout_width="fill_parent"
-        android:layout_height="65dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:backgroundTint="#FFFFFF"
         android:drawableLeft="@drawable/logouticon"
@@ -47,7 +47,7 @@
     <Button
         android:id="@+id/button6"
         android:layout_width="fill_parent"
-        android:layout_height="65dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="216dp"
         android:backgroundTint="#FFFFFF"
         android:drawableLeft="@drawable/logouticon"
@@ -72,12 +72,12 @@
     <Button
         android:id="@+id/button8"
         android:layout_width="fill_parent"
-        android:layout_height="65dp"
-        android:layout_marginBottom="364dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="#FFFFFF"
         android:drawableLeft="@drawable/eyeicon"
         android:fontFamily="@font/sitka_italic"
-        android:onClick="StartActivityLogin"
+        android:onClick="StartActivityAdminDashboard"
         android:text="Vista Geral"
         android:textAlignment="inherit"
         android:textAllCaps="false"
@@ -87,7 +87,7 @@
         app:iconGravity="start"
         app:iconSize="36dp"
         app:iconTint="#464646"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,8 +97,8 @@
     <Button
         android:id="@+id/button7"
         android:layout_width="fill_parent"
-        android:layout_height="65dp"
-        android:layout_marginBottom="288dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="#FFFFFF"
         android:drawableLeft="@drawable/logouticon"
         android:fontFamily="@font/sitka_italic"
@@ -112,7 +112,7 @@
         app:iconGravity="start"
         app:iconSize="36dp"
         app:iconTint="#464646"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -167,4 +167,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.428" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
