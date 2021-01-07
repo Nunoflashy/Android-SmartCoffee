@@ -22,9 +22,6 @@ import com.example.projetofinal_smartcoffee.Util.MessageBox;
 
 public class ListClientesActivity extends BaseMenubarActivity {
 
-    //ListView list;
-    ArrayAdapter<User> adapter;
-
     LinearLayout scrollViewLayout;
 
     UserDatabase userDB = DatabaseManager.GetDB("userDB");
@@ -74,30 +71,20 @@ public class ListClientesActivity extends BaseMenubarActivity {
             switch(item.getItemId()) {
                 case R.id.nav_overview:
                     startActivity(new Intent(this, AdminDashboardActivity.class));
-                    break;
+                break;
                 case R.id.nav_listUsers: break;
                 case R.id.nav_settings:
-                    startActivity(new Intent(this, LoginActivity.class));
-                    break;
+                    startActivity(new Intent(this, SettingsActivity.class));
+                break;
                 case R.id.nav_logout:
                     startActivity(new Intent(this, LoginActivity.class));
-                    break;
+                break;
             }
             return true;
         });
 
         bindControls();
         addToLayout();
-
-
-        userDB.open();
-
-
-        adapter = new ArrayAdapter<>(
-                getApplicationContext(),
-                android.R.layout.simple_list_item_1,
-                userDB.getAll()
-        );
 
     }
 }

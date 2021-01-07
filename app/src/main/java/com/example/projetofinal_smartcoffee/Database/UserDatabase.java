@@ -316,6 +316,4 @@ public class UserDatabase extends Database {
 
     private final int USERSTATE_NORMAL  = 1;
     private final int USERSTATE_BLOCKED = 0;
-
-    public final boolean CLOSE_WHEN_DONE = true;
 }

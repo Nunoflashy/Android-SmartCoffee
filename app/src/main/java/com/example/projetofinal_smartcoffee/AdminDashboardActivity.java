@@ -49,10 +49,11 @@ public class AdminDashboardActivity extends AppCompatActivity {
                     startActivity(new Intent(this, ListClientesActivity.class));
                 break;
                 case R.id.nav_settings:
+                    startActivity(new Intent(this, SettingsActivity.class));
                 break;
                 case R.id.nav_logout:
                     startActivity(new Intent(this, LoginActivity.class));
-                    break;
+                break;
             }
             return true;
         });
@@ -68,10 +69,6 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
         cvUserCount.setOnClickListener((v)      -> startActivity(new Intent(this, ListClientesActivity.class)));
         cvLastRegistered.setOnClickListener((v) -> startActivity(new Intent(this, ClienteDetailsActivity.class).putExtra("user", u)));
-    }
-
-    private void update() {
-
     }
 
     @Override

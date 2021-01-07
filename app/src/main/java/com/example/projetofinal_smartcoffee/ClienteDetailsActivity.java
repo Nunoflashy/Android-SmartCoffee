@@ -202,6 +202,11 @@ public class ClienteDetailsActivity extends AppCompatActivity {
 
         // Remove User Events
         View.OnClickListener removeListener = (v) -> {
+            if(u.getID() == AuthenticationManager.GetAuthenticatedUser().getID()) {
+                MessageBox msg = new MessageBox(this);
+                msg.show("Erro", "Não pode remover a própria conta!", R.drawable.error_flat);
+                return;
+            }
             MessageBox.Show("Remover", String.format("Tem a certeza que pretende remover o utilizador %s?", u.getName()), R.drawable.removeicon,
                     "Remover", (dialogInterface, i) -> {
                         userDB.removeUser(u);

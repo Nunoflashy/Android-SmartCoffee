@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.projetofinal_smartcoffee.Database.ClienteDB;
+import com.example.projetofinal_smartcoffee.Database.Database;
 import com.example.projetofinal_smartcoffee.Database.DatabaseManager;
+import com.example.projetofinal_smartcoffee.Database.ProductDatabase;
 import com.example.projetofinal_smartcoffee.Database.UserDatabase;
 import com.example.projetofinal_smartcoffee.Util.ListViewUtil;
 import com.example.projetofinal_smartcoffee.Util.MessageBox;
@@ -38,6 +40,14 @@ public class MainActivity extends AppCompatActivity {
         // Init Databases
         UserDatabase db = new UserDatabase(getApplicationContext(),"db_SmartCoffee");
         DatabaseManager.AddDB("userDB", db);
+
+        ProductDatabase productDB = new ProductDatabase(getApplicationContext(), "db_SmartCoffee");
+        DatabaseManager.AddDB("productDB", productDB);
+
+        // Add Products (DEBUG)
+        //productDB.delete();
+        Product p = new Product("Cafe", "Cafetaria", 1, 0.60f);
+        productDB.addProduct(p);
 
         StartSplash();
     }
