@@ -34,7 +34,7 @@ public class User implements Serializable {
 
     // Util
     /*
-        Metodo para mostrar o cliente numa ListView
+        Metodo para mostrar o user numa ListView
      */
     @Override
     public String toString() {

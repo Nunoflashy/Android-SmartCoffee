@@ -34,14 +34,6 @@ public class ListClientesActivity extends BaseMenubarActivity {
     }
 
     private void addToLayout() {
-//        for(int i = 0; i < 20; i++) {
-//            TextView tv = new TextView(this);
-//            tv.setBackgroundColor(Color.argb(255, 46, 46, 46));
-//            tv.setTextColor(Color.WHITE);
-//
-//            tv.setText(String.format("TextView%d", i));
-//            scrollViewLayout.addView(tv);
-//        }
         userDB.open();
         for(User u : userDB.getAll()) {
             Button tv = new Button(this);
@@ -81,10 +73,9 @@ public class ListClientesActivity extends BaseMenubarActivity {
         navView.setOnNavigationItemSelectedListener(item -> {
             switch(item.getItemId()) {
                 case R.id.nav_overview:
-                    startActivity(new Intent(this, LoginActivity.class));
+                    startActivity(new Intent(this, AdminDashboardActivity.class));
                     break;
-                case R.id.nav_listUsers:
-                    break;
+                case R.id.nav_listUsers: break;
                 case R.id.nav_settings:
                     startActivity(new Intent(this, LoginActivity.class));
                     break;
@@ -101,12 +92,6 @@ public class ListClientesActivity extends BaseMenubarActivity {
 
         userDB.open();
 
-        //list = findViewById(R.id.list);
-
-//        MessageBox msg = new MessageBox(this);
-//        for(User u : users.getAll()) {
-//            msg.show("Cliente Info", u.getInfo(), 0);
-//        }
 
         adapter = new ArrayAdapter<>(
                 getApplicationContext(),
@@ -114,13 +99,5 @@ public class ListClientesActivity extends BaseMenubarActivity {
                 userDB.getAll()
         );
 
-//        list.setOnItemClickListener((adapterView, view, i, l) -> {
-//            User u = (User)list.getItemAtPosition(i);
-//            Intent it = new Intent(this, ClienteDetailsActivity.class);
-//            it.putExtra("user", u);
-//            startActivity(it);
-//        });
-//
-//        list.setAdapter(adapter);
     }
 }

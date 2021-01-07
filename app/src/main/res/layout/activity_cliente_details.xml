@@ -24,7 +24,6 @@
         android:id="@+id/imgBlock"
         android:layout_width="72px"
         android:layout_height="72px"
-        android:onClick="BlockUser_OnClick"
         app:layout_constraintBottom_toTopOf="@+id/tvBlock"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.377"
@@ -38,7 +37,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sitka_italic"
-        android:onClick="BlockUser_OnClick"
         android:text="Bloquear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView5"
@@ -52,7 +50,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sitka_italic"
-        android:onClick="RemoveUser_OnClick"
         android:text="Remover"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView5"
@@ -60,70 +57,6 @@
         app:layout_constraintStart_toStartOf="@+id/imageView5"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.973" />
-
-    <TextView
-        android:id="@+id/tvEstado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="@font/sitka_italic"
-        android:text="Estado:"
-        android:textColor="#464646"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.556" />
-
-    <TextView
-        android:id="@+id/tvID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="@font/sitka_italic"
-        android:text="ID:"
-        android:textColor="#464646"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.366" />
-
-    <TextView
-        android:id="@+id/tvMail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="@font/sitka_italic"
-        android:text="E-Mail:"
-        android:textColor="#464646"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.492" />
-
-    <TextView
-        android:id="@+id/tvUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="@font/sitka_italic"
-        android:text="Username:"
-        android:textColor="#464646"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.428" />
 
     <TextView
         android:id="@+id/detalhes"
@@ -146,7 +79,6 @@
         android:id="@+id/imgRemove"
         android:layout_width="72px"
         android:layout_height="72px"
-        android:onClick="RemoveUser_OnClick"
         app:layout_constraintBottom_toTopOf="@+id/tvBlock"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.614"
@@ -155,66 +87,286 @@
         app:layout_constraintVertical_bias="0.989"
         app:srcCompat="@drawable/removeicon" />
 
-    <Spinner
-        android:id="@+id/spUserType"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginEnd="32dp"
-        android:background="#000000"
-        android:spinnerMode="dialog"
-        android:textColor="#000000"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.738" />
-
-    <RadioGroup
-        android:id="@+id/radioUserTypes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="90dp"
+    <LinearLayout
+        android:id="@+id/linearLayoutUserType"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutMail"
+        app:layout_constraintVertical_bias="0.156">
+
+        <RadioGroup
+            android:id="@+id/radioUserTypes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTipo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/sitka_italic"
+                android:paddingLeft="30dp"
+                android:text="Tipo:"
+                android:textColor="#464646"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.618" />
+
+            <RadioButton
+                android:id="@+id/radioCustomer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cliente"
+                android:textColor="@color/black"></RadioButton>
+
+            <RadioButton
+                android:id="@+id/radioAdmin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Administrador"
+                android:textColor="@color/black"></RadioButton>
+
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutID"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="228dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView5">
 
         <TextView
-            android:id="@+id/tvTipo"
+            android:id="@+id/tvID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="32dp"
             android:fontFamily="@font/sitka_italic"
-            android:text="Tipo:"
+            android:paddingTop="15dp"
+            android:text="ID:"
+            android:textColor="#464646" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutState"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutMail">
+
+        <TextView
+            android:id="@+id/tvEstado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/sitka_italic"
+            android:paddingTop="15dp"
+            android:text="Estado:"
+            android:textColor="#464646" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutUsername"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutID">
+
+        <TextView
+            android:id="@+id/tvUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/sitka_italic"
+            android:paddingTop="15dp"
+            android:text="Username:"
+            android:textColor="#464646" />
+
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:enabled="false"
+            android:fontFamily="@font/sitka_italic"
+            android:inputType="textPersonName"
+            android:text="Username"
             android:textColor="#464646"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.618" />
+            android:textSize="16sp" />
 
-        <RadioButton
-            android:id="@+id/radioCustomer"
+        <ImageView
+            android:id="@+id/editUserButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cliente"
-            android:textColor="@color/black"></RadioButton>
+            android:layout_weight="1"
+            app:srcCompat="@drawable/editbutton"
+            tools:layout_editor_absoluteX="341dp"
+            tools:layout_editor_absoluteY="101dp" />
 
-        <RadioButton
-            android:id="@+id/radioAdmin"
+        <ImageView
+            android:id="@+id/saveUserButton"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:visibility="gone"
+            app:srcCompat="@drawable/savebuttonicon"
+            tools:layout_editor_absoluteX="341dp"
+            tools:layout_editor_absoluteY="101dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutMail"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutUsername">
+
+        <TextView
+            android:id="@+id/tvMail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Administrador"
-            android:textColor="@color/black"></RadioButton>
-    </RadioGroup>
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/sitka_italic"
+            android:paddingTop="15dp"
+            android:paddingRight="22dp"
+            android:text="E-Mail:"
+            android:textColor="#464646" />
+
+        <EditText
+            android:id="@+id/etMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:enabled="false"
+            android:fontFamily="@font/sitka_italic"
+            android:inputType="textPersonName"
+            android:text="Mail"
+            android:textColor="#464646"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/saveMailButton"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:visibility="gone"
+            app:srcCompat="@drawable/savebuttonicon"
+            tools:layout_editor_absoluteX="341dp"
+            tools:layout_editor_absoluteY="101dp" />
+
+        <ImageView
+            android:id="@+id/editMailButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/editbutton"
+            tools:layout_editor_absoluteX="341dp"
+            tools:layout_editor_absoluteY="101dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="120dp"
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutState">
+
+        <TextView
+            android:id="@+id/tvUsername2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#464646"
+            android:fontFamily="@font/sitka_italic"
+            android:text="Alterar Password"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etChangePass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:enabled="true"
+                android:fontFamily="@font/sitka_italic"
+                android:hint="Password"
+                android:inputType="textPersonName"
+                android:password="true"
+                android:textAlignment="center"
+                android:textColor="#464646"
+                android:textColorHint="#464646"
+                android:textSize="16sp"
+                android:visibility="visible" />
+
+            <EditText
+                android:id="@+id/etConfirmChangePass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:enabled="true"
+                android:fontFamily="@font/sitka_italic"
+                android:hint="Confirmar Password"
+                android:inputType="textPersonName"
+                android:password="true"
+                android:textAlignment="center"
+                android:textColor="#464646"
+                android:textColorHint="#464646"
+                android:textSize="16sp"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnOkChangePass"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:backgroundTint="#464646"
+            android:text="OK"
+            android:visibility="visible"
+            app:iconTint="#FBFBFB" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

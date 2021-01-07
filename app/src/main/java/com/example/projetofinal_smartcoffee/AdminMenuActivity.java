@@ -44,4 +44,10 @@ public class AdminMenuActivity extends AppCompatActivity {
         init();
         update();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

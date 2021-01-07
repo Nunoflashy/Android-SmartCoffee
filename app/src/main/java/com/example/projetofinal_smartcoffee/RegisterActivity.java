@@ -32,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
         tbRepass    = findViewById(R.id.tbRepass);
     }
 
-    public void EfetuarRegisto(View v) {
+    public void PerformRegistration(View v) {
         String user     = tbNome.getText().toString();
         String mail     = tbMail.getText().toString();
         String pass     = tbPass.getText().toString();
@@ -79,6 +79,11 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void StartActivityLogin() {
+        Intent it = new Intent(this, LoginActivity.class);
+        startActivity(it);
+    }
+
+    public void StartActivityLogin(View v) {
         Intent it = new Intent(this, LoginActivity.class);
         startActivity(it);
     }

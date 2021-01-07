@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         auth.setMessage("accountBlocked", "Esta conta encontra-se bloqueada");
         auth.setMessage("invalidAuth", "Os detalhes são invalidos!");
 
-        userDB.open();
+        //userDB.open();
 
         MessageBox msg = new MessageBox(this);
 
@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(this, AdminMenuActivity.class).putExtra("admin", u));
                 } else {
                     // Cliente Activity
-                    //startActivity(new Intent(this, DashboardAdminActivity.class));
+                    startActivity(new Intent(this, UserDashboardActivity.class).putExtra("user", u));
                 }
             });
         } else {
