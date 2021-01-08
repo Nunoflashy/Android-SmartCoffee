@@ -7,13 +7,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.projetofinal_smartcoffee.Exception.UserNotFoundException;
+import com.example.projetofinal_smartcoffee.R;
 import com.example.projetofinal_smartcoffee.User;
+import com.example.projetofinal_smartcoffee.Util.Contexter;
 import com.example.projetofinal_smartcoffee.Util.MessageBox;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDatabase extends Database {
+public class UserDatabase extends Contexter {
 
     public UserDatabase(String dbName) {
         this.name = dbName;
@@ -46,6 +48,9 @@ public class UserDatabase extends Database {
 
     public void delete() {
         //ctx.deleteDatabase(getPath());
+        if(!isOpen) {
+            open();
+        }
         db.execSQL("DROP TABLE IF EXISTS users");
     }
 
@@ -83,9 +88,12 @@ public class UserDatabase extends Database {
         if(!isOpen) {
             open();
         }
-        //super.updateAttribute("users", u.getName(), newName);
-        db.execSQL(String.format("UPDATE users SET name='%s' WHERE name='%s'",
-                    newName, u.getName()));
+        ContentValues v = new ContentValues();
+        v.put("name", newName);
+        db.update("users", v, "id = ?", new String[]{String.valueOf(u.getID())});
+
+        // Atualizar o objeto para evitar desync com a db
+        refreshUser(u);
     }
 
     public void updateMail(User u, String newMail) {
@@ -98,6 +106,9 @@ public class UserDatabase extends Database {
         //super.updateAttribute("users", u.getName(), newName);
         db.execSQL(String.format("UPDATE users SET mail='%s' WHERE mail='%s'",
                 newMail, u.getMail()));
+
+        // Atualizar o objeto para evitar desync com a db
+        refreshUser(u);
     }
 
     public void updatePassword(User u, String password) {
@@ -166,7 +177,7 @@ public class UserDatabase extends Database {
      */
     public void setUserType(User u, UserType type) {
         if(!userExists(u.getName())) {
-            throw new UserNotFoundException();
+            throw new UserNotFoundException("User not found!");
         }
         if(!isOpen) {
             open();
@@ -189,6 +200,15 @@ public class UserDatabase extends Database {
     public User getUserByName(String name) {
         for(User u : getAll()) {
             if(u.getName().equals(name)) {
+                return u;
+            }
+        }
+        throw new UserNotFoundException();
+    }
+
+    public User getUserByID(int id) {
+        for(User u : getAll()) {
+            if(u.getID() == id) {
                 return u;
             }
         }
@@ -299,9 +319,35 @@ public class UserDatabase extends Database {
         return type == USERTYPE_ADMIN;
     }
 
+    /**
+     * Verifica se existe alguma conta de admin na db
+     * @return
+     */
+    public boolean hasAdminAccount() {
+        for(User u : getAll()) {
+            if(isUserAdmin(u)) return true;
+        }
+        return false;
+    }
+
+    public boolean hasUsers() {
+        return getAll().size() != 0;
+    }
+
+    /**
+     * Atualiza o user u a partir dos novos valores da db
+     * @param u
+     */
+    private void refreshUser(User u) {
+        User user = getUserByID(u.getID());
+        u.setName(user.getName());
+        u.setPass(user.getPass());
+        u.setMail(user.getMail());
+    }
+
     public SQLiteDatabase getHandle() { return db; }
 
-    //private SQLiteDatabase db;
+    private SQLiteDatabase db;
     private String name;
 
     private List<User> users = new ArrayList<>();

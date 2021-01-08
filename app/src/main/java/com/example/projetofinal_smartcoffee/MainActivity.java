@@ -10,13 +10,14 @@ import com.example.projetofinal_smartcoffee.Database.DatabaseManager;
 import com.example.projetofinal_smartcoffee.Database.ProductDatabase;
 import com.example.projetofinal_smartcoffee.Database.UserDatabase;
 import com.example.projetofinal_smartcoffee.Database.UserType;
+import com.example.projetofinal_smartcoffee.Util.Languages;
 import com.example.projetofinal_smartcoffee.Util.ListViewUtil;
 import com.example.projetofinal_smartcoffee.Util.MessageBox;
 import com.example.projetofinal_smartcoffee.Util.RegistrationManager;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int SPLASH_TIME = 0;
+    private int SPLASH_TIME = 4000;
 
     private void StartSplash() {
         new Handler().postDelayed(() -> {
@@ -41,11 +42,8 @@ public class MainActivity extends AppCompatActivity {
         ProductDatabase productDB = new ProductDatabase(getApplicationContext(), "db_SmartCoffee");
         DatabaseManager.AddDB("productDB", productDB);
 
-        //db.removeUser(db.getUserByName("Admin"));
-
-
-        // Add Products (DEBUG)
-        //productDB.delete();
+        // Configurar Linguagem
+        Languages.SetLanguage(getString(R.string.language));
 
         StartSplash();
     }

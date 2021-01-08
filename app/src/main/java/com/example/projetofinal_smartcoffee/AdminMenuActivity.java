@@ -67,6 +67,7 @@ public class AdminMenuActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 }

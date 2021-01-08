@@ -40,4 +40,18 @@
     <string name="authLoginSuccess">O login foi efetuado com sucesso!</string>
     <string name="authErrorTitle">Erro</string>
     <string name="blocked">Bloqueado</string>
+    <string name="menuOverview">Vista Geral</string>
+    <string name="menuListCustomers">Ver Clientes</string>
+    <string name="menuSettings">Gerir Produtos</string>
+    <string name="menuLogout">Sair</string>
+    <string name="language">pt</string>
+    <string name="msgError">Erro</string>
+    <string name="cancel">Cancelar</string>
+    <string name="unableToBlockOwnAccount">Não pode bloquear a própria conta!</string>
+    <string name="unableToChangeOwnAccountType">Não é possivel alterar o tipo de utilizador da própria conta!</string>
+    <string name="passwordChanged">Password alterada com sucesso!</string>
+    <string name="passwordNotMatchOrEmpty">As passwords não coincidem ou estão vazias!</string>
+    <string name="unableToDeleteOwnAccount">Não pode remover a própria conta!</string>
+    <string name="registeredMsg">Registo efetuado com sucesso!</string>
+    <string name="manageProducts">Gerir Produtos</string>
 </resources>

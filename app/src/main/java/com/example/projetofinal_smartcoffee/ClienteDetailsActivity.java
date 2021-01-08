@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -19,9 +20,14 @@ import android.widget.TextView;
 import com.example.projetofinal_smartcoffee.Database.DatabaseManager;
 import com.example.projetofinal_smartcoffee.Database.UserDatabase;
 import com.example.projetofinal_smartcoffee.Database.UserType;
+import com.example.projetofinal_smartcoffee.Exception.InvalidUserException;
+import com.example.projetofinal_smartcoffee.Exception.UserNotFoundException;
 import com.example.projetofinal_smartcoffee.Util.AuthenticationManager;
+import com.example.projetofinal_smartcoffee.Util.Languages;
 import com.example.projetofinal_smartcoffee.Util.MessageBox;
 import com.example.projetofinal_smartcoffee.Util.RegistrationManager;
+
+import java.util.concurrent.ExecutionException;
 
 public class ClienteDetailsActivity extends AppCompatActivity {
 
@@ -111,7 +117,7 @@ public class ClienteDetailsActivity extends AppCompatActivity {
             if(!getNewUsername().equals(u.getName())) {
                 if(userDB.userExists(getNewUsername())) {
                     MessageBox msg = new MessageBox(this);
-                    msg.show("Erro", String.format("O utilizador %s ja se encontra registado!", getNewUsername()), R.drawable.error_flat);
+                    msg.show(getString(R.string.msgError), Languages.UserAlreadyRegisteredMsg(getNewUsername()), R.drawable.error_flat);
                     etUsername.setText(u.getName());
                     return;
                 }
@@ -140,11 +146,33 @@ public class ClienteDetailsActivity extends AppCompatActivity {
             etMail.setEnabled(false);
 
             InputMethodManager imm = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(etUsername.getWindowToken(), 0);
+            imm.hideSoftInputFromWindow(etMail.getWindowToken(), 0);
 
             // Update ao user se o mail for alterado no edittext
             if(!getNewMail().equals(u.getMail())) {
                 userDB.updateMail(u, getNewMail());
+            }
+        });
+
+        // User Type Events (RadioGroup)
+        radioUserTypes.setOnCheckedChangeListener((userTypes, radioId) -> {
+            final int RADIO_CUSTOMER = R.id.radioCustomer;
+            final int RADIO_ADMIN    = R.id.radioAdmin;
+
+            if(AuthenticationManager.GetAuthenticatedUser().getID() == u.getID()) {
+                // O utilizador selecionado é o utilizador que fez login
+                MessageBox msg = new MessageBox(this);
+                msg.show(getString(R.string.msgError), getString(R.string.unableToChangeOwnAccountType), R.drawable.error_flat);
+                updateUserType();
+                return;
+            }
+            try {
+                switch(radioId) {
+                    case RADIO_CUSTOMER: userDB.setUserType(u, UserType.Normal); break;
+                    case RADIO_ADMIN:    userDB.setUserType(u, UserType.Admin); break;
+                }
+            } catch(UserNotFoundException ex) {
+                Log.d("UserDB", ex.getMessage());
             }
         });
 
@@ -156,10 +184,10 @@ public class ClienteDetailsActivity extends AppCompatActivity {
             MessageBox msg = new MessageBox(this);
 
             if(pass.equals(repass) && !pass.isEmpty()) {
-                msg.show("Password", "Password alterada com sucesso!", R.drawable.information_icon_svg);
+                msg.show(getString(R.string.password), getString(R.string.passwordChanged), R.drawable.information_icon_svg);
                 userDB.updatePassword(u, pass);
             } else {
-                msg.show("Erro", "As passwords não coincidem ou estão vazias!", R.drawable.error_flat);
+                msg.show(getString(R.string.msgError), getString(R.string.passwordNotMatchOrEmpty), R.drawable.error_flat);
             }
 
         });
@@ -170,27 +198,27 @@ public class ClienteDetailsActivity extends AppCompatActivity {
                 // Estado do User: Normal
                 if(u.getID() == AuthenticationManager.GetAuthenticatedUser().getID()) {
                     MessageBox msg = new MessageBox(this);
-                    msg.show("Erro", "Não pode bloquear a própria conta!", R.drawable.error_flat);
+                    msg.show(getString(R.string.msgError), getString(R.string.unableToBlockOwnAccount), R.drawable.error_flat);
                     return;
                 }
-                MessageBox.Show("Bloquear", String.format("Tem a certeza que pretende bloquear o utilizador %s?", u.getName()), R.drawable.blockiconred,
-                        "Bloquear", (dialogInterface, i) -> {
+                MessageBox.Show(getString(R.string.block), Languages.BlockConfirmMsg(u.getName()), R.drawable.blockiconred,
+                            getString(R.string.block), (dialogInterface, i) -> {
                             userDB.blockUser(u);
-                            MessageBox.Show("Bloquear", String.format("O utilizador %s foi bloqueado do sistema.", u.getName()), R.drawable.blockiconred);
+                            MessageBox.Show(getString(R.string.block), Languages.BlockedMsg(u.getName()), R.drawable.blockiconred);
                             update();
                         },
-                        "Cancelar", (dialogInterface, i) -> {
+                            getString(R.string.cancel), (dialogInterface, i) -> {
                             return;
                         });
             } else {
                 // Estado do User: Bloqueado
-                MessageBox.Show("Desbloquear", String.format("Tem a certeza que pretende desbloquear o utilizador %s?", u.getName()), R.drawable.blockicon,
-                        "Desbloquear", (dialogInterface, i) -> {
+                MessageBox.Show(getString(R.string.unblock), Languages.UnblockConfirmMsg(u.getName()), R.drawable.blockicon,
+                            getString(R.string.unblock), (dialogInterface, i) -> {
                             userDB.unblockUser(u);
-                            MessageBox.Show("Desbloquear", String.format("O utilizador %s foi desbloqueado do sistema.", u.getName()), R.drawable.blockicon);
+                            MessageBox.Show(getString(R.string.unblock), Languages.UnblockedMsg(u.getName()), R.drawable.blockicon);
                             update();
                         },
-                        "Cancelar", (dialogInterface, i) -> {
+                            getString(R.string.cancel), (dialogInterface, i) -> {
                             return;
                         });
             }
@@ -202,15 +230,15 @@ public class ClienteDetailsActivity extends AppCompatActivity {
         View.OnClickListener removeListener = (v) -> {
             if(u.getID() == AuthenticationManager.GetAuthenticatedUser().getID()) {
                 MessageBox msg = new MessageBox(this);
-                msg.show("Erro", "Não pode remover a própria conta!", R.drawable.error_flat);
+                msg.show(getString(R.string.msgError), getString(R.string.unableToDeleteOwnAccount), R.drawable.error_flat);
                 return;
             }
-            MessageBox.Show("Remover", String.format("Tem a certeza que pretende remover o utilizador %s?", u.getName()), R.drawable.removeicon,
-                    "Remover", (dialogInterface, i) -> {
+            MessageBox.Show(getString(R.string.remove), Languages.RemoveConfirmMsg(u.getName()), R.drawable.removeicon,
+                    getString(R.string.remove), (dialogInterface, i) -> {
                         userDB.removeUser(u);
-                        MessageBox.Show("Remover", String.format("O utilizador %s foi removido do sistema.", u.getName()), R.drawable.removeicon);
+                        MessageBox.Show(getString(R.string.remove), Languages.RemovedMsg(u.getName()), R.drawable.removeicon);
                     },
-                    "Cancelar", (dialogInterface, i) -> {
+                        getString(R.string.cancel), (dialogInterface, i) -> {
                         return;
                     });
         };
@@ -224,25 +252,9 @@ public class ClienteDetailsActivity extends AppCompatActivity {
             saveUserButton.setVisibility(View.GONE);
         }
 
+        updateUserType();
         initControls();
 
-        updateUserType();
-        radioUserTypes.setOnCheckedChangeListener((userTypes, radioId) -> {
-            final int RADIO_CUSTOMER = R.id.radioCustomer;
-            final int RADIO_ADMIN    = R.id.radioAdmin;
-
-            if(AuthenticationManager.GetAuthenticatedUser().getID() == u.getID()) {
-                // O utilizador selecionado é o utilizador que fez login
-                MessageBox msg = new MessageBox(this);
-                msg.show("Erro", "Não é possivel mudar o tipo de utilizador da própria conta!", R.drawable.error_flat);
-                return;
-            }
-
-            switch(radioId) {
-                case RADIO_CUSTOMER: userDB.setUserType(u, UserType.Normal); break;
-                case RADIO_ADMIN:    userDB.setUserType(u, UserType.Admin); break;
-            }
-        });
     }
 
     private String getNewUsername() {
@@ -255,9 +267,18 @@ public class ClienteDetailsActivity extends AppCompatActivity {
 
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cliente_details);
+
+        // Configurar Linguagem
+        Languages.SetLanguage(getString(R.string.language));
 
         bindControls();
 
@@ -275,7 +296,7 @@ public class ClienteDetailsActivity extends AppCompatActivity {
         tvID.setText(String.format("ID: %s", u.getID()));
         etUsername.setText(u.getName());
         etMail.setText(u.getMail());
-        tvEstado.setText(String.format("Estado: %s", userDB.isUserBlocked(u) ? "Bloqueado" : "Normal"));
+        tvEstado.setText(String.format(getString(R.string.status) + " %s", userDB.isUserBlocked(u) ? getString(R.string.blocked) : "Normal"));
         tvEstado.setTextColor(userDB.isUserBlocked(u) ? Color.RED : Color.argb(255, 46, 46, 46));
 
         String block    = getString(R.string.block);

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -15,6 +16,8 @@ import com.example.projetofinal_smartcoffee.Util.MessageBox;
 import com.example.projetofinal_smartcoffee.Util.RegistrationManager;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private final boolean DEBUG = false;
 
     EditText tbUsername;
     EditText tbPassword;
@@ -43,37 +46,31 @@ public class LoginActivity extends AppCompatActivity {
         auth.setMessage("accountBlocked", getString(R.string.authAccountBlocked));
         auth.setMessage("invalidAuth", getString(R.string.authInvalidAuth));
 
-        //userDB.open();
-
         MessageBox msg = new MessageBox(this);
 
         if(auth.isLoginSuccessful()) {
-            msg.setMessage("Login", getString(R.string.authLoginSuccess));
-            msg.setIcon(R.drawable.information_icon_svg);
-            msg.setPositiveButton((dialogInterface, i) -> {
-                // TODO: Detetar tipo de login (Cliente, Admin) e redirecionar para a activity certa.
-                User u = userDB.getUserByName(auth.getUser());
-                AuthenticationManager.SetAuthenticatedUser(u);
-                if(!hasAdminAccount()) {
+            msg.show("Login", getString(R.string.authLoginSuccess), R.drawable.information_icon_svg,
+            (dialogInterface, i) -> {
+                User u = userDB.getUserByName(auth.getUser()); // Obter o user a partir do nome
+                AuthenticationManager.SetAuthenticatedUser(u); // Torná-lo como o user autenticado
+
+                // Se nao existir conta de admin, tornar esta num admin
+                if(!userDB.hasAdminAccount()) {
                     userDB.setUserType(u, UserType.Admin);
-                    msg.show("Admin", "Admin Set", R.drawable.information_icon_svg);
+                    MessageBox m = new MessageBox(this);
+                    Log.d("UserDB", String.format("A conta %s é agora uma conta de administrador.", u.getName()));
                 }
+                // Detectar o tipo de conta e redirecionar para a activity certa
                 if(userDB.isUserAdmin(u)) {
-                    // Admin Activity
-                    finish();
                     startActivity(new Intent(this, AdminMenuActivity.class).putExtra("admin", u));
                 } else {
-                    // Cliente Activity
-                    finish();
                     startActivity(new Intent(this, UserDashboardActivity.class).putExtra("user", u));
                 }
+                finish();
             });
         } else {
-            msg.setTitle(getString(R.string.authErrorTitle));
-            msg.setMessage(auth.getError());
-            msg.setIcon(R.drawable.error_flat);
+            msg.show(getString(R.string.authErrorTitle), auth.getError(), R.drawable.error_flat);
         }
-        msg.show();
     }
 
     @Override
@@ -81,12 +78,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         bindControls();
-    }
 
-    private boolean hasAdminAccount() {
-        for(User u : userDB.getAll()) {
-            if(userDB.isUserAdmin(u)) return true;
+        if(DEBUG) {
+            tbUsername.setText("admin");
+            tbPassword.setText("admin");
         }
-        return false;
     }
 }

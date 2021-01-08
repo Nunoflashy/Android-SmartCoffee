@@ -28,6 +28,17 @@ public class User implements Serializable {
     public String getPass() { return pass; }
     public String getMail() { return mail; }
 
+    // Setters
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
     public String getInfo() {
         return String.format("Username: %s\nMail: %s\nPassword: %s\n", name, mail, pass);
     }

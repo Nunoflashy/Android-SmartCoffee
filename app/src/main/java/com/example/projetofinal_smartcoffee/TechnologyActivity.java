@@ -9,9 +9,10 @@ import android.widget.LinearLayout;
 
 import com.example.projetofinal_smartcoffee.Database.DatabaseManager;
 import com.example.projetofinal_smartcoffee.Database.ProductDatabase;
+import com.example.projetofinal_smartcoffee.Util.Languages;
 import com.example.projetofinal_smartcoffee.Util.Toast;
 
-public class TechnologyActivity extends AppCompatActivity {
+public class TechnologyActivity extends BaseCategoryActivity {
 
     static final String PRODUCT_CATEGORY = "Tecnologia";
 
@@ -23,7 +24,6 @@ public class TechnologyActivity extends AppCompatActivity {
     }
 
     private void addProductsIfNotExists() {
-
         if(!productDB.hasProductsFromCategory(PRODUCT_CATEGORY)) {
             Product[] products = new Product[] {
                 new Product("Filme 2D/3D", PRODUCT_CATEGORY, 1, 9f),
@@ -37,22 +37,14 @@ public class TechnologyActivity extends AppCompatActivity {
         }
     }
 
-    private void addProductsToLayout() {
-        productDB.open();
-        for(Product p : productDB.getAllFromCategory("Tecnologia")) {
-            Button product = new Button(this);
-            product.setId(p.getID());
-            product.setBackgroundColor(Color.argb(255, 46, 46, 46));
-            product.setTextColor(Color.WHITE);
-            product.setAllCaps(false);
-            product.setText(String.format("%s (%.2f€)", p.getName(), p.getPrice()));
+    @Override
+    protected String getCategory() {
+        return PRODUCT_CATEGORY;
+    }
 
-            product.setOnClickListener((v) -> {
-                Toast.Show(this, String.format("Produto %s adicionado!", p.getName()));
-            });
-
-            svTechnologyLayout.addView(product);
-        }
+    @Override
+    protected LinearLayout getLinearLayout() {
+        return svTechnologyLayout;
     }
 
     @Override
@@ -61,7 +53,7 @@ public class TechnologyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_technology);
 
         bindControls();
-        addProductsToLayout();
+        super.addProductsToLayout();
         addProductsIfNotExists();
     }
 }

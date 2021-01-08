@@ -4,18 +4,18 @@
     <item
         android:id="@+id/nav_overview"
         android:icon="@drawable/eyeicon"
-        android:title="Visão Geral"/>
+        android:title="@string/menuOverview"/>
     <item
         android:id="@+id/nav_listUsers"
         android:icon="@drawable/usersicon"
-        android:title="Ver Clientes"/>
+        android:title="@string/menuListCustomers"/>
     <item
         android:id="@+id/nav_settings"
         android:icon="@drawable/settingsicon"
-        android:title="Definições"/>
+        android:title="@string/menuSettings"/>
     <item
         android:id="@+id/nav_logout"
         android:icon="@drawable/logouticon"
-        android:title="Sair"/>
+        android:title="@string/menuLogout"/>
 
 </menu>

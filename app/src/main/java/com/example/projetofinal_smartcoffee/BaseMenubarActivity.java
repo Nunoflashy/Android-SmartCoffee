@@ -1,5 +1,6 @@
 package com.example.projetofinal_smartcoffee;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -38,23 +39,24 @@ public abstract class BaseMenubarActivity extends AppCompatActivity implements B
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        navView.postDelayed(() -> {
+        return true;
+    }
+
+    protected void initNavView() {
+        navView = findViewById(R.id.menubar);
+
+        navView.setOnNavigationItemSelectedListener(item -> {
+            if(item.getItemId() == getBottomNavigationMenuItemID()) return true;
             switch(item.getItemId()) {
-                case R.id.nav_overview:
-                    startActivity(new Intent(this, null));
-                break;
-                case R.id.nav_listUsers:
-                    startActivity(new Intent(this, ListClientesActivity.class));
-                break;
-                case R.id.nav_logout:
-                    MessageBox msg = new MessageBox(this);
-                    msg.show("Teste", "teste", R.drawable.information_icon_svg);
-                    startActivity(new Intent(this, LoginActivity.class));
-                break;
+                case R.id.nav_overview: startActivity(new Intent(getActivity(), AdminDashboardActivity.class)); break;
+                case R.id.nav_listUsers: startActivity(new Intent(getActivity(), ListClientesActivity.class)); break;
+                case R.id.nav_settings: startActivity(new Intent(getActivity(), SettingsActivity.class)); break;
+                case R.id.nav_logout: startActivity(new Intent(getActivity(), LoginActivity.class)); break;
             }
             finish();
-        }, 400);
-        return true;
+            return true;
+        });
+
     }
 
     private void updateState() {
@@ -67,6 +69,7 @@ public abstract class BaseMenubarActivity extends AppCompatActivity implements B
         item.setChecked(true);
     }
 
-    abstract int getLayoutID();
-    abstract int getBottomNavigationMenuItemID();
+    protected abstract int getLayoutID();
+    protected abstract int getBottomNavigationMenuItemID();
+    protected abstract Activity getActivity();
 }

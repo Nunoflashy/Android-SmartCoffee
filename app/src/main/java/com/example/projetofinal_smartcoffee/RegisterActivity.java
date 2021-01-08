@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import com.example.projetofinal_smartcoffee.Database.DatabaseManager;
 import com.example.projetofinal_smartcoffee.Database.UserDatabase;
+import com.example.projetofinal_smartcoffee.Util.Languages;
 import com.example.projetofinal_smartcoffee.Util.MessageBox;
 import com.example.projetofinal_smartcoffee.Util.RegistrationManager;
 
@@ -48,14 +49,15 @@ public class RegisterActivity extends AppCompatActivity {
         MessageBox msg = new MessageBox(this);
 
         if(reg.isRegistrationSuccessful()) {
-            msg.show("Registo efetuado com sucesso!", String.format("A sua conta %s foi registada com sucesso!\nBem-Vindo à Smart Coffee!", u.getName()), R.drawable.information_icon_svg,
+            msg.show(getString(R.string.registeredMsg), Languages.UserRegisteredMsg(u.getName()), R.drawable.information_icon_svg,
             (dialogInterface, i) -> {
                 userDB.addUser(u);
                 userDB.close();
                 StartActivityLogin();
+                finish();
             });
         } else {
-            msg.show("Erro", reg.getError(), R.drawable.error_flat);
+            msg.show(getString(R.string.msgError), reg.getError(), R.drawable.error_flat);
         }
     }
 
@@ -73,6 +75,10 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        // Configurar Linguagem
+        Languages.SetLanguage(getString(R.string.language));
+
         BindControls();
     }
 }

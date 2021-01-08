@@ -370,7 +370,10 @@
             android:backgroundTint="#464646"
             android:text="OK"
             android:visibility="visible"
-            app:iconTint="#FBFBFB" />
+            app:icon="@drawable/ic_baseline_check_circle_24"
+            app:iconGravity="textStart"
+            app:iconSize="20dp"
+            app:iconTint="#808080" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

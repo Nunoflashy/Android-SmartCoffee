@@ -48,14 +48,13 @@ public class UserDashboardActivity extends AppCompatActivity {
             startActivity(new Intent(this, TechnologyActivity.class));
         });
         btnUserLogout.setOnClickListener((v) -> {
-            finish();
             startActivity(new Intent(this, LoginActivity.class));
+            finish();
         });
     }
 
     private void init() {
         u = (User)getIntent().getExtras().getSerializable("user");
-
         initControls();
     }
 

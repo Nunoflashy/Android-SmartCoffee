@@ -8,11 +8,12 @@ import android.util.Log;
 
 import com.example.projetofinal_smartcoffee.Product;
 import com.example.projetofinal_smartcoffee.User;
+import com.example.projetofinal_smartcoffee.Util.Contexter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDatabase extends Database {
+public class ProductDatabase extends Contexter {
     public ProductDatabase(String dbName) {
         this.name = name;
     }
@@ -126,6 +127,7 @@ public class ProductDatabase extends Database {
         return String.format("%s//%s", getContext().getFilesDir().getPath(), name);
     }
 
+    private SQLiteDatabase db;
     private String name;
     private boolean isOpen = false;
 

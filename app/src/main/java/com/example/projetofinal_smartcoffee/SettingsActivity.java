@@ -3,6 +3,7 @@ package com.example.projetofinal_smartcoffee;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,11 +15,12 @@ import android.widget.TextView;
 
 import com.example.projetofinal_smartcoffee.Database.DatabaseManager;
 import com.example.projetofinal_smartcoffee.Database.ProductDatabase;
+import com.example.projetofinal_smartcoffee.Util.Languages;
 import com.example.projetofinal_smartcoffee.Util.MessageBox;
 import com.example.projetofinal_smartcoffee.Util.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends BaseMenubarActivity {
 
     LinearLayout layoutManageCafeteria;
     LinearLayout layoutManageBakery;
@@ -37,8 +39,6 @@ public class SettingsActivity extends AppCompatActivity {
     ScrollView svManageSavories;
     ScrollView svManageDrinks;
     ScrollView svManageTechnology;
-
-    BottomNavigationView menubar;
 
     ProductDatabase productDB = DatabaseManager.GetProductDB("productDB");
 
@@ -105,13 +105,12 @@ public class SettingsActivity extends AppCompatActivity {
 
             product.setOnClickListener((v) -> {
                 productDB.setAvailable(p, !productDB.isAvailable(p));
-                MessageBox msg = new MessageBox(this);
-                msg.show("Produto", String.format("Product ID: %d\nProduct Name: %s\nProduct Category: %s\nProduct Available: %d\nProduct Price:%.2f",
-                        p.getID(), p.getName(), p.getCategory(), p.getAvailability(), p.getPrice()), R.drawable.information_icon_svg);
                 if(productDB.isAvailable(p)) {
                     product.setTextColor(Color.WHITE);
+                    Toast.Show(this,Languages.ProductInStockMsg(p.getName()));
                 } else {
                     product.setTextColor(Color.RED);
+                    Toast.Show(this,Languages.ProductOutStockMsg(p.getName()));
                 }
             });
 
@@ -133,25 +132,34 @@ public class SettingsActivity extends AppCompatActivity {
         addToLayoutFromCategory(TechnologyActivity.PRODUCT_CATEGORY);
     }
 
-    private void initMenubar() {
-        menubar = findViewById(R.id.menubar);
+//    private void initMenubar() {
+//        navView = findViewById(R.id.menubar);
+//
+//        navView.setOnNavigationItemSelectedListener(item -> {
+//            switch(item.getItemId()) {
+//                case R.id.nav_overview: startActivity(new Intent(this, AdminDashboardActivity.class)); break;
+//                case R.id.nav_listUsers: startActivity(new Intent(this, ListClientesActivity.class)); break;
+//                case R.id.nav_settings: break;
+//                case R.id.nav_logout: startActivity(new Intent(this, LoginActivity.class)); break;
+//            }
+//            finish();
+//            return true;
+//        });
+//    }
 
-        menubar.setOnNavigationItemSelectedListener(item -> {
-            switch(item.getItemId()) {
-                case R.id.nav_overview:
-                    startActivity(new Intent(this, AdminDashboardActivity.class));
-                break;
-                case R.id.nav_listUsers:
-                    startActivity(new Intent(this, ListClientesActivity.class));
-                    break;
-                case R.id.nav_settings: return true;
-                case R.id.nav_logout:
-                    startActivity(new Intent(this, LoginActivity.class));
-                break;
-            }
-            finish();
-            return true;
-        });
+    @Override
+    protected int getLayoutID() {
+        return R.layout.activity_settings;
+    }
+
+    @Override
+    protected int getBottomNavigationMenuItemID() {
+        return R.id.nav_settings;
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return this;
     }
 
     @Override
@@ -159,9 +167,12 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        // Configurar Linguagem
+        Languages.SetLanguage(getString(R.string.language));
+
         bindControls();
         addToLayout();
         initControls();
-        initMenubar();
+        super.initNavView();
     }
 }

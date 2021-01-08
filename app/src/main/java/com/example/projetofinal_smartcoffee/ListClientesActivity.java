@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -57,13 +58,29 @@ public class ListClientesActivity extends BaseMenubarActivity {
     }
 
     @Override
-    int getLayoutID() {
+    protected int getLayoutID() {
         return R.layout.activity_list_clientes;
     }
 
     @Override
-    int getBottomNavigationMenuItemID() {
+    protected int getBottomNavigationMenuItemID() {
         return R.id.nav_listUsers;
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return this;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        scrollViewLayout.removeAllViews();
+        scrollViewLayout.invalidate();
+        addToLayout();
+
+        finish();
     }
 
     @Override
@@ -71,23 +88,7 @@ public class ListClientesActivity extends BaseMenubarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_clientes);
 
-        navView = findViewById(R.id.menubar);
-
-        navView.setOnNavigationItemSelectedListener(item -> {
-            switch(item.getItemId()) {
-                case R.id.nav_overview:
-                    startActivity(new Intent(this, AdminDashboardActivity.class));
-                break;
-                case R.id.nav_listUsers: break;
-                case R.id.nav_settings:
-                    startActivity(new Intent(this, SettingsActivity.class));
-                break;
-                case R.id.nav_logout:
-                    startActivity(new Intent(this, LoginActivity.class));
-                break;
-            }
-            return true;
-        });
+        super.initNavView();
 
         bindControls();
         addToLayout();

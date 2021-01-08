@@ -3,6 +3,7 @@ package com.example.projetofinal_smartcoffee;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -15,7 +16,6 @@ import java.util.List;
 
 public class AdminDashboardActivity extends BaseMenubarActivity {
 
-    BottomNavigationView menubar;
     TextView tvUserCount, tvNewestUser;
     CardView cvUserCount, cvLastRegistered;
     UserDatabase userDB = DatabaseManager.GetDB("userDB");
@@ -39,27 +39,6 @@ public class AdminDashboardActivity extends BaseMenubarActivity {
         return newestUser;
     }
 
-    private void initMenubar() {
-        menubar = findViewById(R.id.menubar);
-
-        menubar.setOnNavigationItemSelectedListener(item -> {
-            switch(item.getItemId()) {
-                case R.id.nav_overview: return true;
-                case R.id.nav_listUsers:
-                    startActivity(new Intent(this, ListClientesActivity.class));
-                break;
-                case R.id.nav_settings:
-                    startActivity(new Intent(this, SettingsActivity.class));
-                break;
-                case R.id.nav_logout:
-                    startActivity(new Intent(this, LoginActivity.class));
-                break;
-            }
-            finish();
-            return true;
-        });
-    }
-
     private void init() {
         userDB.open();
 
@@ -73,22 +52,33 @@ public class AdminDashboardActivity extends BaseMenubarActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_dashboard);
 
         bindControls();
         init();
-        initMenubar();
+        super.initNavView();
     }
 
     @Override
-    int getLayoutID() {
+    protected int getLayoutID() {
         return R.layout.activity_admin_dashboard;
     }
 
     @Override
-    int getBottomNavigationMenuItemID() {
+    protected int getBottomNavigationMenuItemID() {
         return R.id.nav_overview;
+    }
+
+    @Override
+    protected Activity getActivity() {
+        return this;
     }
 }

@@ -4,7 +4,7 @@
     <string name="tecnologia">Technology</string>
     <string name="salgados">Savories</string>
     <string name="bebidas">Drinks</string>
-    <string name="cafetaria">Cafetaria</string>
+    <string name="cafetaria">Cafeteria</string>
     <string name="pastelaria">Bakery</string>
     <string name="users">Users</string>
     <string name="lastRegistered">Last Registered</string>
@@ -41,4 +41,18 @@
     <string name="authLoginSuccess">You have logged in successfully!</string>
     <string name="authErrorTitle">Error</string>
     <string name="blocked">Blocked</string>
+    <string name="menuOverview">Overview</string>
+    <string name="menuListCustomers">View Customers</string>
+    <string name="menuSettings">Manage Products</string>
+    <string name="menuLogout">Logout</string>
+    <string name="language">en</string>
+    <string name="msgError">Error</string>
+    <string name="cancel">Cancel</string>
+    <string name="unableToBlockOwnAccount">You cannot block your own account!</string>
+    <string name="unableToChangeOwnAccountType">You cannot change your own account type!</string>
+    <string name="passwordChanged">Password changed successfully!</string>
+    <string name="passwordNotMatchOrEmpty">The passwords do not match or they were left empty!</string>
+    <string name="unableToDeleteOwnAccount">You cannot delete your own account!</string>
+    <string name="registeredMsg">Registered successfully!</string>
+    <string name="manageProducts">Manage Products</string>
 </resources>
