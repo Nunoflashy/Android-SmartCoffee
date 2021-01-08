@@ -25,7 +25,7 @@
         android:layout_marginTop="208dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/sitka_italic"
-        android:text="Definições"
+        android:text="Gerir Produtos"
         android:textColor="#464646"
         android:textSize="10pt"
         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
@@ -34,4 +34,150 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.278" />
+
+    <LinearLayout
+        android:id="@+id/svManageCafeteriaLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/menubar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="350dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detalhes6"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/tvManageCafeteria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#464646"
+            android:fontFamily="@font/sitka_italic"
+            android:text="@string/cafetaria"
+            android:textAlignment="center" />
+
+        <ScrollView
+            android:id="@+id/svManageCafeteria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/layoutManageCafeteria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible" />
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/tvManageBakery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#464646"
+            android:fontFamily="@font/sitka_italic"
+            android:text="@string/pastelaria"
+            android:textAlignment="center" />
+
+        <ScrollView
+            android:id="@+id/svManageBakery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/layoutManageBakery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible" />
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/tvManageSavories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#464646"
+            android:fontFamily="@font/sitka_italic"
+            android:text="@string/salgados"
+            android:textAlignment="center" />
+
+        <ScrollView
+            android:id="@+id/svManageSavories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/layoutManageSavories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible" />
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/tvManageDrinks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#464646"
+            android:fontFamily="@font/sitka_italic"
+            android:text="@string/bebidas"
+            android:textAlignment="center" />
+
+        <ScrollView
+            android:id="@+id/svManageDrinks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/layoutManageDrinks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+            </LinearLayout>
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/tvManageTechnology"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#464646"
+            android:fontFamily="@font/sitka_italic"
+            android:text="@string/tecnologia"
+            android:textAlignment="center" />
+
+        <ScrollView
+            android:id="@+id/svManageTechnology"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/layoutManageTechnology"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/menubar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#464646"
+        app:flow_verticalAlign="bottom"
+        app:itemTextColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:menu="@menu/menubar_bottom">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

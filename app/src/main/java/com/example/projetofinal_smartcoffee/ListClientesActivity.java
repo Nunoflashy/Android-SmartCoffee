@@ -2,9 +2,11 @@ package com.example.projetofinal_smartcoffee;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,9 +38,13 @@ public class ListClientesActivity extends BaseMenubarActivity {
             Button tv = new Button(this);
             tv.setId(u.getID());
             tv.setBackgroundColor(Color.argb(255, 46, 46, 46));
+
+            Typeface typeface = ResourcesCompat.getFont(this, R.font.sitka_italic);
+            tv.setTypeface(typeface);
+
             tv.setTextColor(userDB.isUserBlocked(u) ? Color.RED : Color.WHITE);
             tv.setAllCaps(false);
-            tv.setText(String.format("%s (id: %s) %s", u.getName(), u.getID(), userDB.isUserBlocked(u) ? "[Bloqueado]" : ""));
+            tv.setText(String.format("%s (id: %s) %s", u.getName(), u.getID(), userDB.isUserBlocked(u) ? "[" + getString(R.string.blocked) + "]" : ""));
 //            tv.setVisibility(AuthenticationManager.GetAuthenticatedUser().getID() ==
 //                    u.getID() ? View.GONE : View.VISIBLE);
             tv.setOnClickListener((v) -> {

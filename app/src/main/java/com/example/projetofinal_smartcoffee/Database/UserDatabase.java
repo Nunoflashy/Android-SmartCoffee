@@ -6,13 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.projetofinal_smartcoffee.Exception.ClienteNotValidException;
 import com.example.projetofinal_smartcoffee.Exception.UserNotFoundException;
 import com.example.projetofinal_smartcoffee.User;
-import com.example.projetofinal_smartcoffee.Util.Contexter;
 import com.example.projetofinal_smartcoffee.Util.MessageBox;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -243,7 +240,7 @@ public class UserDatabase extends Database {
             return false;
         }
         catch(Exception e) {
-            MessageBox.Show("Exception", e.getMessage(), 0);
+            //MessageBox.Show("Exception", e.getMessage(), 0);
         }
         return false;
     }

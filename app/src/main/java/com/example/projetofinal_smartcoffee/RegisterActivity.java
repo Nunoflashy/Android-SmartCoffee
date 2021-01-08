@@ -2,21 +2,15 @@ package com.example.projetofinal_smartcoffee;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.projetofinal_smartcoffee.Database.ClienteDB;
 import com.example.projetofinal_smartcoffee.Database.DatabaseManager;
 import com.example.projetofinal_smartcoffee.Database.UserDatabase;
 import com.example.projetofinal_smartcoffee.Util.MessageBox;
 import com.example.projetofinal_smartcoffee.Util.RegistrationManager;
-
-import java.util.Dictionary;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -41,11 +35,11 @@ public class RegisterActivity extends AppCompatActivity {
         RegistrationManager reg = new RegistrationManager(userDB);
         reg.setDetails(user, mail, pass, repass);
 
-        reg.setMessage("userEmpty","O user não pode estar vazio!");
-        reg.setMessage("mailEmpty","O mail não pode estar vazio!");
-        reg.setMessage("passEmpty","A password não pode estar vazia!");
-        reg.setMessage("passNoMatch","As passwords não coincidem!");
-        reg.setMessage("userExists","Este user já se encontra registado!");
+        reg.setMessage("userEmpty", getString(R.string.regUserEmpty));
+        reg.setMessage("mailEmpty", getString(R.string.regMailEmpty));
+        reg.setMessage("passEmpty", getString(R.string.regPassEmpty));
+        reg.setMessage("passNoMatch", getString(R.string.regPassNoMatch));
+        reg.setMessage("userExists", getString(R.string.regUserExists));
 
         User u = new User(user, pass, mail);
 
@@ -63,19 +57,6 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             msg.show("Erro", reg.getError(), R.drawable.error_flat);
         }
-
-//        if(reg.isRegistrationSuccessful()) {
-//            // O registo foi bem sucedido
-//            MessageBox.Show("Registado com sucesso!", String.format("A sua conta %s foi registada com sucesso!\nBem-Vindo à Smart Coffee!", u.getName()), R.drawable.information_icon_svg,
-//                (dialogInterface, i) -> {
-//                    userDB.addUser(u);
-//                    userDB.close();
-//                    StartActivityLogin();
-//                });
-//        } else {
-//            // O registo falhou
-//            MessageBox.Show("Erro", reg.getError(), R.drawable.error_flat);
-//        }
     }
 
     private void StartActivityLogin() {

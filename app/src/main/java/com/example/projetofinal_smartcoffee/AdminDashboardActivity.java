@@ -13,7 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
-public class AdminDashboardActivity extends AppCompatActivity {
+public class AdminDashboardActivity extends BaseMenubarActivity {
 
     BottomNavigationView menubar;
     TextView tvUserCount, tvNewestUser;
@@ -44,7 +44,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
         menubar.setOnNavigationItemSelectedListener(item -> {
             switch(item.getItemId()) {
-                case R.id.nav_overview: break;
+                case R.id.nav_overview: return true;
                 case R.id.nav_listUsers:
                     startActivity(new Intent(this, ListClientesActivity.class));
                 break;
@@ -55,6 +55,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
                     startActivity(new Intent(this, LoginActivity.class));
                 break;
             }
+            finish();
             return true;
         });
     }
@@ -79,5 +80,15 @@ public class AdminDashboardActivity extends AppCompatActivity {
         bindControls();
         init();
         initMenubar();
+    }
+
+    @Override
+    int getLayoutID() {
+        return R.layout.activity_admin_dashboard;
+    }
+
+    @Override
+    int getBottomNavigationMenuItemID() {
+        return R.id.nav_overview;
     }
 }

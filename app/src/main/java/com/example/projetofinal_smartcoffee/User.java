@@ -32,10 +32,6 @@ public class User implements Serializable {
         return String.format("Username: %s\nMail: %s\nPassword: %s\n", name, mail, pass);
     }
 
-    // Util
-    /*
-        Metodo para mostrar o user numa ListView
-     */
     @Override
     public String toString() {
         return String.format("%s", name);

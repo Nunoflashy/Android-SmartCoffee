@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sitka_italic"
-        android:text="Bloquear"
+        android:text="@string/block"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView5"
         app:layout_constraintHorizontal_bias="0.372"
@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sitka_italic"
-        android:text="Remover"
+        android:text="@string/remove"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView5"
         app:layout_constraintHorizontal_bias="0.621"
@@ -65,7 +65,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/sitka_italic"
-        android:text="Detalhes"
+        android:text="@string/details"
         android:textColor="#464646"
         android:textSize="10pt"
         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
@@ -113,7 +113,7 @@
                 android:layout_marginEnd="15dp"
                 android:fontFamily="@font/sitka_italic"
                 android:paddingLeft="30dp"
-                android:text="Tipo:"
+                android:text="@string/type"
                 android:textColor="#464646"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView5"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -126,15 +126,17 @@
                 android:id="@+id/radioCustomer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cliente"
-                android:textColor="@color/black"></RadioButton>
+                android:text="@string/customer"
+                android:textColor="@color/black">
+            </RadioButton>
 
             <RadioButton
                 android:id="@+id/radioAdmin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Administrador"
-                android:textColor="@color/black"></RadioButton>
+                android:text="@string/admin"
+                android:textColor="@color/black">
+            </RadioButton>
 
         </RadioGroup>
     </LinearLayout>
@@ -180,7 +182,7 @@
             android:layout_marginEnd="32dp"
             android:fontFamily="@font/sitka_italic"
             android:paddingTop="15dp"
-            android:text="Estado:"
+            android:text="@string/status"
             android:textColor="#464646" />
     </LinearLayout>
 
@@ -202,7 +204,7 @@
             android:layout_marginEnd="32dp"
             android:fontFamily="@font/sitka_italic"
             android:paddingTop="15dp"
-            android:text="Username:"
+            android:text="@string/username"
             android:textColor="#464646" />
 
         <EditText
@@ -214,6 +216,7 @@
             android:enabled="false"
             android:fontFamily="@font/sitka_italic"
             android:inputType="textPersonName"
+            android:paddingTop="5dp"
             android:text="Username"
             android:textColor="#464646"
             android:textSize="16sp" />
@@ -257,7 +260,7 @@
             android:layout_marginEnd="32dp"
             android:fontFamily="@font/sitka_italic"
             android:paddingTop="15dp"
-            android:paddingRight="22dp"
+            android:paddingRight="18dp"
             android:text="E-Mail:"
             android:textColor="#464646" />
 
@@ -270,6 +273,7 @@
             android:enabled="false"
             android:fontFamily="@font/sitka_italic"
             android:inputType="textPersonName"
+            android:paddingTop="5dp"
             android:text="Mail"
             android:textColor="#464646"
             android:textSize="16sp" />
@@ -313,7 +317,7 @@
             android:layout_height="fill_parent"
             android:background="#464646"
             android:fontFamily="@font/sitka_italic"
-            android:text="Alterar Password"
+            android:text="@string/changePass"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
@@ -332,7 +336,7 @@
                 android:ems="10"
                 android:enabled="true"
                 android:fontFamily="@font/sitka_italic"
-                android:hint="Password"
+                android:hint="@string/password"
                 android:inputType="textPersonName"
                 android:password="true"
                 android:textAlignment="center"
@@ -349,7 +353,7 @@
                 android:ems="10"
                 android:enabled="true"
                 android:fontFamily="@font/sitka_italic"
-                android:hint="Confirmar Password"
+                android:hint="@string/confirmPass"
                 android:inputType="textPersonName"
                 android:password="true"
                 android:textAlignment="center"

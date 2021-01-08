@@ -38,7 +38,7 @@ public abstract class BaseMenubarActivity extends AppCompatActivity implements B
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        //navView.postDelayed(() -> {
+        navView.postDelayed(() -> {
             switch(item.getItemId()) {
                 case R.id.nav_overview:
                     startActivity(new Intent(this, null));
@@ -52,8 +52,8 @@ public abstract class BaseMenubarActivity extends AppCompatActivity implements B
                     startActivity(new Intent(this, LoginActivity.class));
                 break;
             }
-            //finish();
-        //}, 400);
+            finish();
+        }, 400);
         return true;
     }
 

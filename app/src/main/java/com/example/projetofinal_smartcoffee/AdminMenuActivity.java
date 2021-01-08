@@ -18,9 +18,9 @@ public class AdminMenuActivity extends AppCompatActivity {
     Button btnAdminSettings;
     Button btnAdminLogout;
 
-    private void BindControls() {
+    private void bindControls() {
         tvAdminName = findViewById(R.id.tvAdminName);
-        btnAdminSettings    = findViewById(R.id.btnAdminSettings);
+        btnAdminOverview    = findViewById(R.id.btnAdminOverview);
         btnAdminListUsers   = findViewById(R.id.btnAdminListUsers);
         btnAdminSettings    = findViewById(R.id.btnAdminSettings);
         btnAdminLogout      = findViewById(R.id.btnAdminLogout);
@@ -42,40 +42,24 @@ public class AdminMenuActivity extends AppCompatActivity {
         // Logout
         btnAdminLogout.setOnClickListener((v) -> {
             startActivity(new Intent(this, LoginActivity.class));
+            finish();
         });
     }
 
     private void init() {
         currentAdmin = (User)getIntent().getExtras().getSerializable("admin");
-
-       //initControls();
+        initControls();
     }
 
     private void update() {
         tvAdminName.setText(currentAdmin.getName());
     }
 
-    public void StartActivityListClientes(View v) {
-        startActivity(new Intent(this, ListClientesActivity.class));
-    }
-
-    public void StartActivitySettings(View v) {
-        startActivity(new Intent(this, SettingsActivity.class));
-    }
-
-    public void StartActivityAdminDashboard(View v) {
-        startActivity(new Intent(this, AdminDashboardActivity.class));
-    }
-
-    public void StartActivityLogin(View v) {
-        startActivity(new Intent(this, LoginActivity.class));
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_menu);
-        BindControls();
+        bindControls();
         init();
         update();
     }

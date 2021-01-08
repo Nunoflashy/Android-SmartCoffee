@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetoFinalSmartCoffee">
-        <activity android:name=".CafetariaActivity"></activity>
+        <activity android:name=".TechnologyActivity"></activity>
+        <activity android:name=".DrinksActivity" />
+        <activity android:name=".SavoriesActivity" />
+        <activity android:name=".BakeryActivity" />
+        <activity android:name=".CafetariaActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".UserDashboardActivity" />
         <activity android:name=".AdminDashboardActivity" />

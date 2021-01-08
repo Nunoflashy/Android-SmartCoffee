@@ -86,8 +86,6 @@ public class ClienteDetailsActivity extends AppCompatActivity {
     private void initControls() {
         // User Events
         editUserButton.setOnClickListener((v) -> {
-            // TODO: Criar EditText em cada atributo e atribuir a posicao do TextView
-            // TODO: Alterar o valor desejado do user na db a partir do EditText
             etUsername.setEnabled(true);
             etUsername.requestFocus();
 
@@ -161,7 +159,7 @@ public class ClienteDetailsActivity extends AppCompatActivity {
                 msg.show("Password", "Password alterada com sucesso!", R.drawable.information_icon_svg);
                 userDB.updatePassword(u, pass);
             } else {
-                msg.show("Erro", "Erro!", R.drawable.error_flat);
+                msg.show("Erro", "As passwords não coincidem ou estão vazias!", R.drawable.error_flat);
             }
 
         });
@@ -279,7 +277,10 @@ public class ClienteDetailsActivity extends AppCompatActivity {
         etMail.setText(u.getMail());
         tvEstado.setText(String.format("Estado: %s", userDB.isUserBlocked(u) ? "Bloqueado" : "Normal"));
         tvEstado.setTextColor(userDB.isUserBlocked(u) ? Color.RED : Color.argb(255, 46, 46, 46));
-        tvBlock.setText(userDB.isUserBlocked(u) ? "Desbloquear" : "Bloquear");
+
+        String block    = getString(R.string.block);
+        String unblock  = getString(R.string.unblock);
+        tvBlock.setText(userDB.isUserBlocked(u) ? unblock : block);
     }
 
     public void StartActivityListClientes(View v) {

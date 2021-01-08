@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CafetariaActivity">
+    tools:context=".DrinksActivity">
 
     <ImageView
-        android:id="@+id/imageView14"
+        android:id="@+id/imageView18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
@@ -21,13 +21,12 @@
         android:id="@+id/linearLayout2"
         android:layout_width="fill_parent"
         android:layout_height="80dp"
+        android:layout_marginTop="168dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView14"
-        app:layout_constraintVertical_bias="0.285">
+        app:layout_constraintTop_toTopOf="@+id/imageView18">
 
         <TextView
             android:id="@+id/detalhes7"
@@ -36,7 +35,7 @@
             android:fontFamily="@font/sitka_italic"
             android:paddingLeft="50dp"
             android:paddingTop="25dp"
-            android:text="@string/cafetaria"
+            android:text="@string/bebidas"
             android:textAlignment="center"
             android:textColor="#464646"
             android:textSize="10pt"
@@ -50,27 +49,27 @@
         <ImageView
             android:id="@+id/imageView15"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="75dp"
             android:adjustViewBounds="false"
             android:cropToPadding="false"
             android:paddingLeft="120dp"
-            app:srcCompat="@drawable/cafetariaicon" />
+            android:paddingTop="15dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/drinksicon" />
 
     </LinearLayout>
 
     <ScrollView
-        android:id="@+id/svCafetaria"
+        android:id="@+id/svDrinks"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:id="@+id/svCafetariaLayout"
+            android:id="@+id/svDrinksLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"></LinearLayout>

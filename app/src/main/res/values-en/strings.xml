@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ProjetoFinal-SmartCoffee</string>
+    <string name="tecnologia">Technology</string>
+    <string name="salgados">Savories</string>
+    <string name="bebidas">Drinks</string>
+    <string name="cafetaria">Cafetaria</string>
+    <string name="pastelaria">Bakery</string>
+    <string name="users">Users</string>
+    <string name="lastRegistered">Last Registered</string>
+    <string name="username">Username</string>
+    <string name="logout">Logout</string>
+    <string name="settings">Manage Products</string>
+    <string name="overview">Overview</string>
+    <string name="viewCustomers">View Customers</string>
+    <string name="admin">Administrator</string>
+    <string name="block">Block</string>
+    <string name="remove">Remove</string>
+    <string name="details">Details</string>
+    <string name="type">Type:</string>
+    <string name="customer">Customer</string>
+    <string name="status">Status:</string>
+    <string name="changePass">Change Password</string>
+    <string name="password">Password</string>
+    <string name="confirmPass">Confirm Password</string>
+    <string name="register">Register</string>
+    <string name="loginNoAcc">Not a customer yet?</string>
+    <string name="registerPerformLogin">Click here to login</string>
+    <string name="customerAlready">Already have an account?</string>
+    <string name="unblock">Unblock</string>
+    <string name="regUserEmpty">The user must not be left blank!</string>
+    <string name="regMailEmpty">The mail must not be left blank!</string>
+    <string name="regPassEmpty">The password must not be left blank!</string>
+    <string name="regPassNoMatch">The passwords do not match!</string>
+    <string name="regUserExists">This user is already registered.</string>
+    <string name="authUserEmpty">Enter your username.</string>
+    <string name="authPassEmpty">Enter your password.</string>
+    <string name="authUserNoExist">The user does not exist!</string>
+    <string name="authAccountBlocked">This account is currently blocked.</string>
+    <string name="authInvalidAuth">The details are invalid!</string>
+    <string name="authLoginSuccess">You have logged in successfully!</string>
+    <string name="authErrorTitle">Error</string>
+    <string name="blocked">Blocked</string>
+</resources>

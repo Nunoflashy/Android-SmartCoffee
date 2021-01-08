@@ -1,14 +1,12 @@
 package com.example.projetofinal_smartcoffee;
 
-import com.example.projetofinal_smartcoffee.Database.ProductStatus;
-
 public class Product {
     public Product() {}
 
     public Product(String name, String category, int available, float price) {
         this.name = name;
         this.category = category;
-        this.status = status;
+        this.status = available;
         this.price = price;
     }
 
