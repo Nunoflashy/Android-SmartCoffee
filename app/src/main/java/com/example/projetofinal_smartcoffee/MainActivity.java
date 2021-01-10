@@ -5,17 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 
 import com.example.projetofinal_smartcoffee.Database.DatabaseManager;
 import com.example.projetofinal_smartcoffee.Database.ProductDatabase;
-import com.example.projetofinal_smartcoffee.Database.ProductDatabase2;
 import com.example.projetofinal_smartcoffee.Database.UserDatabase;
-import com.example.projetofinal_smartcoffee.Database.UserType;
 import com.example.projetofinal_smartcoffee.Util.Languages;
-import com.example.projetofinal_smartcoffee.Util.ListViewUtil;
 import com.example.projetofinal_smartcoffee.Util.MessageBox;
-import com.example.projetofinal_smartcoffee.Util.RegistrationManager;
 
 public class MainActivity extends AppCompatActivity {
 
