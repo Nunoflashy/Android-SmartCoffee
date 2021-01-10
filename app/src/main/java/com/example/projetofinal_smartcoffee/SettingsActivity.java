@@ -1,11 +1,13 @@
 package com.example.projetofinal_smartcoffee;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Button;
@@ -75,8 +77,10 @@ public class SettingsActivity extends BaseMenubarActivity {
         ScrollView finalSv = sv;
         tv.setOnClickListener((v) -> {
             if(finalSv.getHeight() == 0) {
+                // Expandir Layout
                 finalSv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             } else {
+                // Colapsar Layout
                 finalSv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0));
             }
         });
@@ -91,15 +95,13 @@ public class SettingsActivity extends BaseMenubarActivity {
     }
 
     private void addToLayoutFromCategory(String category) {
-        for(Product p : productDB.getAllFromCategory(category)) {
+        for(Product p : productDB.getAll(category)) {
             TextView product = new TextView(this);
             product.setId(p.getID());
             product.setBackgroundColor(Color.argb(255, 46, 46, 46));
-            if(productDB.isAvailable(p)) {
-                product.setTextColor(Color.WHITE);
-            } else {
-                product.setTextColor(Color.RED);
-            }
+            Typeface typeface = ResourcesCompat.getFont(this, R.font.sitka_italic);
+            product.setTypeface(typeface);
+            product.setTextColor(productDB.isAvailable(p) ? Color.WHITE : Color.RED);
             product.setAllCaps(false);
             product.setText(String.format("%s (%.2f€) (id: %d)", p.getName(), p.getPrice(), p.getID()));
 
@@ -107,19 +109,19 @@ public class SettingsActivity extends BaseMenubarActivity {
                 productDB.setAvailable(p, !productDB.isAvailable(p));
                 if(productDB.isAvailable(p)) {
                     product.setTextColor(Color.WHITE);
-                    Toast.Show(this,Languages.ProductInStockMsg(p.getName()));
+                    Toast.Show(this, Languages.ProductInStockMsg(p.getName()));
                 } else {
                     product.setTextColor(Color.RED);
-                    Toast.Show(this,Languages.ProductOutStockMsg(p.getName()));
+                    Toast.Show(this, Languages.ProductOutStockMsg(p.getName()));
                 }
             });
 
             switch(category) {
-                case CafetariaActivity.PRODUCT_CATEGORY: layoutManageCafeteria.addView(product); break;
-                case BakeryActivity.PRODUCT_CATEGORY: layoutManageBakery.addView(product); break;
-                case SavoriesActivity.PRODUCT_CATEGORY: layoutManageSavories.addView(product); break;
-                case DrinksActivity.PRODUCT_CATEGORY: layoutManageDrinks.addView(product); break;
-                case TechnologyActivity.PRODUCT_CATEGORY: layoutManageTechnology.addView(product); break;
+                case CafetariaActivity.PRODUCT_CATEGORY:    layoutManageCafeteria.addView(product); break;
+                case BakeryActivity.PRODUCT_CATEGORY:       layoutManageBakery.addView(product); break;
+                case SavoriesActivity.PRODUCT_CATEGORY:     layoutManageSavories.addView(product); break;
+                case DrinksActivity.PRODUCT_CATEGORY:       layoutManageDrinks.addView(product); break;
+                case TechnologyActivity.PRODUCT_CATEGORY:   layoutManageTechnology.addView(product); break;
             }
         }
     }
@@ -131,21 +133,6 @@ public class SettingsActivity extends BaseMenubarActivity {
         addToLayoutFromCategory(DrinksActivity.PRODUCT_CATEGORY);
         addToLayoutFromCategory(TechnologyActivity.PRODUCT_CATEGORY);
     }
-
-//    private void initMenubar() {
-//        navView = findViewById(R.id.menubar);
-//
-//        navView.setOnNavigationItemSelectedListener(item -> {
-//            switch(item.getItemId()) {
-//                case R.id.nav_overview: startActivity(new Intent(this, AdminDashboardActivity.class)); break;
-//                case R.id.nav_listUsers: startActivity(new Intent(this, ListClientesActivity.class)); break;
-//                case R.id.nav_settings: break;
-//                case R.id.nav_logout: startActivity(new Intent(this, LoginActivity.class)); break;
-//            }
-//            finish();
-//            return true;
-//        });
-//    }
 
     @Override
     protected int getLayoutID() {

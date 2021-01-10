@@ -17,26 +17,21 @@ public class BakeryActivity extends BaseCategoryActivity {
     static final String PRODUCT_CATEGORY = "Pastelaria";
 
     LinearLayout svBakeryLayout;
-    ProductDatabase productDB = DatabaseManager.GetProductDB("productDB");
 
     private void bindControls() {
         svBakeryLayout = findViewById(R.id.svBakeryLayout);
     }
 
-    private void addProductsIfNotExists() {
-        if(!productDB.hasProductsFromCategory(PRODUCT_CATEGORY)) {
-            Product[] products = new Product[] {
+    @Override
+    protected Product[] defaultProducts() {
+        return  new Product[] {
                 new Product("Bolo", PRODUCT_CATEGORY, 1, 1f),
                 new Product("Fatia de Bolo", PRODUCT_CATEGORY, 1, 1.8f),
                 new Product("Miniaturas", PRODUCT_CATEGORY, 1, 1f),
                 new Product("Cheese Cake", PRODUCT_CATEGORY, 1, 1.50f),
                 new Product("Muffin", PRODUCT_CATEGORY, 1, 1.20f),
                 new Product("Torta", PRODUCT_CATEGORY, 1, 1.80f)
-            };
-            for(Product p : products) {
-                productDB.addProduct(p);
-            }
-        }
+        };
     }
 
     @Override
@@ -54,11 +49,7 @@ public class BakeryActivity extends BaseCategoryActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bakery);
 
-        // Configurar Linguagem
-        Languages.SetLanguage(getString(R.string.language));
-
         bindControls();
         super.addProductsToLayout();
-        addProductsIfNotExists();
     }
 }

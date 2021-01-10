@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import com.example.projetofinal_smartcoffee.Database.DatabaseManager;
 import com.example.projetofinal_smartcoffee.Database.ProductDatabase;
+import com.example.projetofinal_smartcoffee.Database.ProductDatabase2;
 import com.example.projetofinal_smartcoffee.Database.UserDatabase;
 import com.example.projetofinal_smartcoffee.Database.UserType;
 import com.example.projetofinal_smartcoffee.Util.Languages;
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
         ProductDatabase productDB = new ProductDatabase(getApplicationContext(), "db_SmartCoffee");
         DatabaseManager.AddDB("productDB", productDB);
+        productDB.dropTable();
+        //db.dropTable();
 
         // Configurar Linguagem
         Languages.SetLanguage(getString(R.string.language));

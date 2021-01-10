@@ -42,10 +42,15 @@ public abstract class BaseMenubarActivity extends AppCompatActivity implements B
         return true;
     }
 
+
+    /**
+     * Começa a NavView(menu) e atribui-lhe a funcionalidade
+     */
     protected void initNavView() {
         navView = findViewById(R.id.menubar);
 
         navView.setOnNavigationItemSelectedListener(item -> {
+            // Se o item do menu for o mesmo onde nos encontramos, não efetuar nenhuma acção
             if(item.getItemId() == getBottomNavigationMenuItemID()) return true;
             switch(item.getItemId()) {
                 case R.id.nav_overview: startActivity(new Intent(getActivity(), AdminDashboardActivity.class)); break;
@@ -56,20 +61,42 @@ public abstract class BaseMenubarActivity extends AppCompatActivity implements B
             finish();
             return true;
         });
-
     }
 
+    /**
+     * Faz o get do id do item do menu e em seguida seleciona-o
+     */
     private void updateState() {
         int actionID = getBottomNavigationMenuItemID();
         selectItem(actionID);
     }
 
+    /**
+     * Método que seleciona o item do menu em que nos encontramos
+     * @param id
+     */
     private void selectItem(int id) {
         MenuItem item = navView.getMenu().findItem(id);
         item.setChecked(true);
     }
 
+    /**
+     *
+     * @return Retorna o ID do layout da activity
+     */
     protected abstract int getLayoutID();
+
+    /**
+     *
+     * @return Retorna o id do item do menu que está selecionado
+     */
     protected abstract int getBottomNavigationMenuItemID();
+
+    /**
+     * Método com a função de retornar a activity derivada
+     * para possibilitar detetar em que item do menu nos encontramos
+     *
+     * @return Retorna a activity
+     */
     protected abstract Activity getActivity();
 }

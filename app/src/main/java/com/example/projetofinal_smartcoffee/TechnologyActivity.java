@@ -17,24 +17,19 @@ public class TechnologyActivity extends BaseCategoryActivity {
     static final String PRODUCT_CATEGORY = "Tecnologia";
 
     LinearLayout svTechnologyLayout;
-    ProductDatabase productDB = DatabaseManager.GetProductDB("productDB");
 
     private void bindControls() {
         svTechnologyLayout = findViewById(R.id.svTechnologyLayout);
     }
 
-    private void addProductsIfNotExists() {
-        if(!productDB.hasProductsFromCategory(PRODUCT_CATEGORY)) {
-            Product[] products = new Product[] {
+    @Override
+    protected Product[] defaultProducts() {
+        return  new Product[] {
                 new Product("Filme 2D/3D", PRODUCT_CATEGORY, 1, 9f),
                 new Product("Gaming", PRODUCT_CATEGORY, 1, 5f),
                 new Product("Simulador/Carro", PRODUCT_CATEGORY, 1, 2.00f),
                 new Product("Realidade Virtual", PRODUCT_CATEGORY, 1, 40.0f),
-            };
-            for(Product p : products) {
-                productDB.addProduct(p);
-            }
-        }
+        };
     }
 
     @Override
@@ -54,6 +49,5 @@ public class TechnologyActivity extends BaseCategoryActivity {
 
         bindControls();
         super.addProductsToLayout();
-        addProductsIfNotExists();
     }
 }

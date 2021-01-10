@@ -55,10 +55,6 @@ public class AuthenticationManager extends Authenticator {
             return false;
         }
 
-        if(!db.isOpen()) {
-            db.open();
-        }
-
         if(!db.userExists(user)) {
             setError(getMessage("userNoExist"));
             return false;

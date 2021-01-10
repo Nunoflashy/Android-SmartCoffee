@@ -19,25 +19,20 @@ public class SavoriesActivity extends BaseCategoryActivity {
     static final String PRODUCT_CATEGORY = "Salgados";
 
     LinearLayout svSavoriesLayout;
-    ProductDatabase productDB = DatabaseManager.GetProductDB("productDB");
 
     private void bindControls() {
         svSavoriesLayout = findViewById(R.id.svSavoriesLayout);
     }
 
-    private void addProductsIfNotExists() {
-        if(!productDB.hasProductsFromCategory(PRODUCT_CATEGORY)) {
-            Product[] products = new Product[] {
+    @Override
+    protected Product[] defaultProducts() {
+        return  new Product[] {
                 new Product("Rissol", PRODUCT_CATEGORY, 1, 1.50f),
                 new Product("Croquete", PRODUCT_CATEGORY, 1, 1.50f),
                 new Product("Coxinha", PRODUCT_CATEGORY, 1, 1.50f),
                 new Product("Panado", PRODUCT_CATEGORY, 1, 1.50f),
                 new Product("Empada", PRODUCT_CATEGORY, 1, 1.50f),
-            };
-            for(Product p : products) {
-                productDB.addProduct(p);
-            }
-        }
+        };
     }
 
     @Override
@@ -57,6 +52,5 @@ public class SavoriesActivity extends BaseCategoryActivity {
 
         bindControls();
         super.addProductsToLayout();
-        addProductsIfNotExists();
     }
 }

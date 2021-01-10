@@ -24,20 +24,16 @@ public class CafetariaActivity extends BaseCategoryActivity {
         svCafetariaLayout = findViewById(R.id.svCafetariaLayout);
     }
 
-    private void addProductsIfNotExists() {
-        if(!productDB.hasProductsFromCategory(PRODUCT_CATEGORY)) {
-            Product[] products = new Product[] {
+    @Override
+    protected Product[] defaultProducts() {
+        return  new Product[]{
                 new Product("Café", PRODUCT_CATEGORY, 1, 0.60f),
                 new Product("Descafeinado", PRODUCT_CATEGORY, 1, 0.60f),
                 new Product("Meia de Leite", PRODUCT_CATEGORY, 1, 1f),
                 new Product("Galão", PRODUCT_CATEGORY, 1, 1f),
                 new Product("Latte", PRODUCT_CATEGORY, 1, 1.20f),
                 new Product("Leite de Chocolate", PRODUCT_CATEGORY, 1, 1.30f)
-            };
-            for(Product p : products) {
-                productDB.addProduct(p);
-            }
-        }
+        };
     }
 
 
@@ -58,6 +54,5 @@ public class CafetariaActivity extends BaseCategoryActivity {
 
         bindControls();
         super.addProductsToLayout();
-        addProductsIfNotExists();
     }
 }

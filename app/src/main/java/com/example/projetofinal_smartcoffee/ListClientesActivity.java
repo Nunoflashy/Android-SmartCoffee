@@ -34,20 +34,15 @@ public class ListClientesActivity extends BaseMenubarActivity {
     }
 
     private void addToLayout() {
-        userDB.open();
         for(User u : userDB.getAll()) {
             Button tv = new Button(this);
             tv.setId(u.getID());
             tv.setBackgroundColor(Color.argb(255, 46, 46, 46));
-
             Typeface typeface = ResourcesCompat.getFont(this, R.font.sitka_italic);
             tv.setTypeface(typeface);
-
             tv.setTextColor(userDB.isUserBlocked(u) ? Color.RED : Color.WHITE);
             tv.setAllCaps(false);
             tv.setText(String.format("%s (id: %s) %s", u.getName(), u.getID(), userDB.isUserBlocked(u) ? "[" + getString(R.string.blocked) + "]" : ""));
-//            tv.setVisibility(AuthenticationManager.GetAuthenticatedUser().getID() ==
-//                    u.getID() ? View.GONE : View.VISIBLE);
             tv.setOnClickListener((v) -> {
                 Intent it = new Intent(this, ClienteDetailsActivity.class);
                 it.putExtra("user", u);
@@ -75,11 +70,6 @@ public class ListClientesActivity extends BaseMenubarActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
-        scrollViewLayout.removeAllViews();
-        scrollViewLayout.invalidate();
-        addToLayout();
-
         finish();
     }
 
@@ -92,6 +82,16 @@ public class ListClientesActivity extends BaseMenubarActivity {
 
         bindControls();
         addToLayout();
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        // Atualizar todos os users na lista no fim de
+        // possiveis alterações terem ocorrido
+        scrollViewLayout.removeAllViews();
+        scrollViewLayout.invalidate();
+        addToLayout();
     }
 }

@@ -35,9 +35,14 @@ public class Product {
         return price;
     }
 
+    public String getInfo() {
+        return String.format("id:%d - %s (%.2f€) (Category: %s) (Available:%d)",
+                id, name, price, category, status);
+    }
+
     private int id;
     private String name;
     private String category;
-    int status;
-    float price;
+    private int status;
+    private float price;
 }

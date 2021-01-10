@@ -99,8 +99,10 @@ public class ClienteDetailsActivity extends AppCompatActivity {
             int len = etUsername.getText().length();
             etUsername.setSelection(len);
 
+            // Mostrar o teclado
             InputMethodManager imm = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(etUsername, InputMethodManager.SHOW_IMPLICIT);
+
             editUserButton.setVisibility(View.GONE);
             saveUserButton.setVisibility(View.VISIBLE);
         });
@@ -110,6 +112,7 @@ public class ClienteDetailsActivity extends AppCompatActivity {
 
             etUsername.setEnabled(false);
 
+            // Esconder o teclado
             InputMethodManager imm = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(etUsername.getWindowToken(), 0);
 
@@ -134,8 +137,10 @@ public class ClienteDetailsActivity extends AppCompatActivity {
             int len = etMail.getText().length();
             etMail.setSelection(len);
 
+            // Mostrar o teclado
             InputMethodManager imm = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.showSoftInput(etMail, InputMethodManager.SHOW_IMPLICIT);
+
             editMailButton.setVisibility(View.GONE);
             saveMailButton.setVisibility(View.VISIBLE);
         });
@@ -145,6 +150,7 @@ public class ClienteDetailsActivity extends AppCompatActivity {
 
             etMail.setEnabled(false);
 
+            // Esconder o teclado
             InputMethodManager imm = (InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(etMail.getWindowToken(), 0);
 
@@ -162,8 +168,8 @@ public class ClienteDetailsActivity extends AppCompatActivity {
             if(AuthenticationManager.GetAuthenticatedUser().getID() == u.getID()) {
                 // O utilizador selecionado é o utilizador que fez login
                 MessageBox msg = new MessageBox(this);
-                msg.show(getString(R.string.msgError), getString(R.string.unableToChangeOwnAccountType), R.drawable.error_flat);
                 updateUserType();
+                msg.show(getString(R.string.msgError), getString(R.string.unableToChangeOwnAccountType), R.drawable.error_flat);
                 return;
             }
             try {
@@ -189,7 +195,6 @@ public class ClienteDetailsActivity extends AppCompatActivity {
             } else {
                 msg.show(getString(R.string.msgError), getString(R.string.passwordNotMatchOrEmpty), R.drawable.error_flat);
             }
-
         });
 
         // Block User Events
@@ -284,8 +289,6 @@ public class ClienteDetailsActivity extends AppCompatActivity {
 
         Intent it = getIntent();
         u = (User)it.getExtras().getSerializable("user");
-
-        userDB.open();
 
         MessageBox.SetContext(this);
         init();

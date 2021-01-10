@@ -44,15 +44,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         User u = new User(user, pass, mail);
 
-        userDB.open();
-
         MessageBox msg = new MessageBox(this);
 
         if(reg.isRegistrationSuccessful()) {
             msg.show(getString(R.string.registeredMsg), Languages.UserRegisteredMsg(u.getName()), R.drawable.information_icon_svg,
             (dialogInterface, i) -> {
                 userDB.addUser(u);
-                userDB.close();
                 StartActivityLogin();
                 finish();
             });

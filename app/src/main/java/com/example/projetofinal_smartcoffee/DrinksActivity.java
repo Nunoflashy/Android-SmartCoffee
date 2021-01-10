@@ -17,26 +17,21 @@ public class DrinksActivity extends BaseCategoryActivity {
     static final String PRODUCT_CATEGORY = "Bebida";
 
     LinearLayout svDrinksLayout;
-    ProductDatabase productDB = DatabaseManager.GetProductDB("productDB");
 
     private void bindControls() {
         svDrinksLayout = findViewById(R.id.svDrinksLayout);
     }
 
-    private void addProductsIfNotExists() {
-        if(!productDB.hasProductsFromCategory(PRODUCT_CATEGORY)) {
-            Product[] products = new Product[] {
+    @Override
+    protected Product[] defaultProducts() {
+        return  new Product[] {
                 new Product("Água", PRODUCT_CATEGORY, 1, 0.80f),
                 new Product("Chá", PRODUCT_CATEGORY, 1, 1.40f),
                 new Product("Sumo de Lata", PRODUCT_CATEGORY, 1, 1.25f),
                 new Product("Sumo Natural", PRODUCT_CATEGORY, 1, 2.50f),
                 new Product("Bebida Energetica", PRODUCT_CATEGORY, 1, 2.10f),
                 new Product("Nectar", PRODUCT_CATEGORY, 1, 1.25f),
-            };
-            for(Product p : products) {
-                productDB.addProduct(p);
-            }
-        }
+        };
     }
 
     @Override
@@ -56,6 +51,5 @@ public class DrinksActivity extends BaseCategoryActivity {
 
         bindControls();
         super.addProductsToLayout();
-        addProductsIfNotExists();
     }
 }

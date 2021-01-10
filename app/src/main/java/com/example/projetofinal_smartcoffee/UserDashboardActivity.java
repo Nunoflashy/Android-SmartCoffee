@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.projetofinal_smartcoffee.Database.DatabaseManager;
+import com.example.projetofinal_smartcoffee.Database.ProductDatabase;
+
 public class UserDashboardActivity extends AppCompatActivity {
 
     TextView tvUserDashboardUser = null;

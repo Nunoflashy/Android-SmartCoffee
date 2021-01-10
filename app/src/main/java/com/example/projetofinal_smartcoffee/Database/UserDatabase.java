@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
 import com.example.projetofinal_smartcoffee.Exception.UserNotFoundException;
@@ -15,52 +16,26 @@ import com.example.projetofinal_smartcoffee.Util.MessageBox;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDatabase extends Contexter {
-
-    public UserDatabase(String dbName) {
-        this.name = dbName;
-    }
+public class UserDatabase extends Database {
 
     public UserDatabase(Context ctx, String name) {
-        setContext(ctx);
-        this.name = name;
-
+        super(ctx, name);
+        super.onCreate(this.getReadableDatabase());
     }
 
-    public void open() {
-        db = SQLiteDatabase.openOrCreateDatabase(getPath(), null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS users(" +
-                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "name VARCHAR NOT NULL, " +
-                    "pass VARCHAR NOT NULL, " +
-                    "mail VARCHAR NOT NULL, " +
-                    "type INTEGER NOT NULL, " +
-                    "status INTEGER NOT NULL);");
-        isOpen = true;
+    @Override
+    protected String getAtributes() {
+        return  "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name VARCHAR NOT NULL, " +
+                "pass VARCHAR NOT NULL, " +
+                "mail VARCHAR NOT NULL, " +
+                "type INTEGER NOT NULL, " +
+                "status INTEGER NOT NULL";
     }
 
-    public void close() {
-        if(db.isOpen()) {
-            db.close();
-            isOpen = false;
-        }
-    }
-
-    public void delete() {
-        //ctx.deleteDatabase(getPath());
-        if(!isOpen) {
-            open();
-        }
-        db.execSQL("DROP TABLE IF EXISTS users");
-    }
-
-    public boolean isOpen() {
-        return isOpen;
-    }
-
-    private String passToHash(String pw) {
-        // TODO: Implementar hash function na password
-        return pw;
+    @Override
+    protected String getTable() {
+        return "users";
     }
 
     /**
@@ -68,58 +43,50 @@ public class UserDatabase extends Contexter {
      * @param u
      */
     public void addUser(User u) {
-        if(!isOpen) {
-            open();
-        }
         ContentValues v = new ContentValues();
         v.put("name", u.getName());
-        v.put("pass", passToHash(u.getPass()));
+        v.put("pass", u.getPass());
         v.put("mail", u.getMail());
         v.put("type", USERTYPE_NORMAL);
         v.put("status", USERSTATE_NORMAL);
-        db.insert("users", null, v);
-
+        super.addAtributes(v);
     }
 
     public void updateUser(User u, String newName) {
         if(!userExists(u.getName())) {
             throw new UserNotFoundException();
         }
-        if(!isOpen) {
-            open();
-        }
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues v = new ContentValues();
         v.put("name", newName);
         db.update("users", v, "id = ?", new String[]{String.valueOf(u.getID())});
 
         // Atualizar o objeto para evitar desync com a db
         refreshUser(u);
+        db.close();
     }
 
     public void updateMail(User u, String newMail) {
         if(!userExists(u.getName())) {
             throw new UserNotFoundException();
         }
-        if(!isOpen) {
-            open();
-        }
-        //super.updateAttribute("users", u.getName(), newName);
-        db.execSQL(String.format("UPDATE users SET mail='%s' WHERE mail='%s'",
-                newMail, u.getMail()));
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(String.format("UPDATE users SET mail='%s' WHERE id='%d'",
+                newMail, u.getID()));
 
         // Atualizar o objeto para evitar desync com a db
         refreshUser(u);
+        db.close();
     }
 
     public void updatePassword(User u, String password) {
         if(!userExists(u.getName())) {
             throw new UserNotFoundException();
         }
-        if(!isOpen) {
-            open();
-        }
-        db.execSQL(String.format("UPDATE users SET pass='%s' WHERE pass='%s'",
-                password, u.getPass()));
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(String.format("UPDATE users SET pass='%s' WHERE id='%d'",
+                password, u.getID()));
+        db.close();
     }
 
     /**
@@ -130,10 +97,9 @@ public class UserDatabase extends Contexter {
         if(!userExists(u.getName())) {
             throw new UserNotFoundException();
         }
-        if(!isOpen) {
-            open();
-        }
+        SQLiteDatabase db = this.getWritableDatabase();
         db.delete("users", "id = ?", new String[]{String.valueOf(u.getID())});
+        db.close();
     }
 
     /**
@@ -144,12 +110,11 @@ public class UserDatabase extends Contexter {
         if(!userExists(u.getName())) {
             throw new UserNotFoundException();
         }
-        if(!isOpen) {
-            open();
-        }
         if(!isUserBlocked(u.getName())) {
             // Bloquear user
+            SQLiteDatabase db = this.getWritableDatabase();
             db.execSQL(String.format("UPDATE users SET status=%d WHERE id=%d", USERSTATE_BLOCKED, u.getID()));
+            db.close();
         }
     }
 
@@ -161,12 +126,11 @@ public class UserDatabase extends Contexter {
         if(!userExists(u.getName())) {
             throw new UserNotFoundException();
         }
-        if(!isOpen) {
-            open();
-        }
         if(isUserBlocked(u.getName())) {
             // Desbloquear user
+            SQLiteDatabase db = this.getWritableDatabase();
             db.execSQL(String.format("UPDATE users SET status=%d WHERE id=%d", USERSTATE_NORMAL, u.getID()));
+            db.close();
         }
     }
 
@@ -179,15 +143,14 @@ public class UserDatabase extends Contexter {
         if(!userExists(u.getName())) {
             throw new UserNotFoundException("User not found!");
         }
-        if(!isOpen) {
-            open();
-        }
         int typeValue = USERTYPE_NORMAL;
         switch(type) {
             case Normal: typeValue = USERTYPE_NORMAL; break;
             case Admin:  typeValue = USERTYPE_ADMIN; break;
         }
+        SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL(String.format("UPDATE users SET type=%s WHERE id=%d", typeValue, u.getID()));
+        db.close();
     }
 
 
@@ -230,6 +193,7 @@ public class UserDatabase extends Contexter {
      * @return
      */
     public boolean isUserBlocked(String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
         int status = USERSTATE_NORMAL;
         Cursor c = db.rawQuery(String.format("SELECT * FROM users WHERE name='%s';", username),null);
         Log.d("UserDB", String.valueOf(c.getCount()));
@@ -237,6 +201,7 @@ public class UserDatabase extends Contexter {
             status = c.getInt(c.getColumnIndex("status"));
             c.close();
         }
+        db.close();
         return status == USERSTATE_BLOCKED;
     }
 
@@ -247,6 +212,7 @@ public class UserDatabase extends Contexter {
      */
     public boolean userExists(String u) {
         try {
+            SQLiteDatabase db = this.getReadableDatabase();
             Cursor c = db.rawQuery(String.format("SELECT name FROM users WHERE name='%s';", u),null);
             Log.d("UserDB", String.valueOf(c.getCount()));
             if(c.getCount() > 0) {
@@ -265,35 +231,31 @@ public class UserDatabase extends Contexter {
         return false;
     }
 
-    public String getName() {
-        return name;
-    }
-
-
-    public String getPath() {
-        return String.format("%s//%s", getContext().getFilesDir().getPath(), name);
-    }
-
     /**
      * Retorna todos os users na db
      * @return
      */
     public List<User> getAll() {
-        if(!isOpen) {
-            open();
-        }
-        Cursor c = db.rawQuery("SELECT * FROM users ORDER BY id", null);
+        SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<User> users = new ArrayList<>();
 
-        while(c.moveToNext()) {
-            users.add(new User(
-                c.getInt(c.getColumnIndex("id")),
-                c.getString(c.getColumnIndex("name")),
-                c.getString(c.getColumnIndex("pass")),
-                c.getString(c.getColumnIndex("mail"))
-            ));
+        try {
+            Cursor c = db.rawQuery("SELECT * FROM users ORDER BY id", null);
+            while (c.moveToNext()) {
+                users.add(new User(
+                        c.getInt(c.getColumnIndex("id")),
+                        c.getString(c.getColumnIndex("name")),
+                        c.getString(c.getColumnIndex("pass")),
+                        c.getString(c.getColumnIndex("mail"))
+                ));
 
-            Log.d("UserDB", c.getString(c.getColumnIndex("pass")));
+                Log.d("UserDB", c.getString(c.getColumnIndex("pass")));
+            }
+        } catch(SQLiteException ex) {
+            if(ex.getMessage().contains("no such table")) {
+                super.onCreate(db);
+                //throw new RuntimeException("The database " + getDatabaseName() + " could not create the table " + getTable());
+            }
         }
         return users;
     }
@@ -307,9 +269,7 @@ public class UserDatabase extends Contexter {
         if(!userExists(u.getName())) {
             throw new UserNotFoundException();
         }
-        if(!isOpen) {
-            open();
-        }
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(String.format("SELECT * FROM users WHERE id='%s';", u.getID()),null);
         int type = USERTYPE_NORMAL;
         if(c.moveToFirst()) {
@@ -339,20 +299,11 @@ public class UserDatabase extends Contexter {
      * @param u
      */
     private void refreshUser(User u) {
-        User user = getUserByID(u.getID());
+        User user = this.getUserByID(u.getID());
         u.setName(user.getName());
         u.setPass(user.getPass());
         u.setMail(user.getMail());
     }
-
-    public SQLiteDatabase getHandle() { return db; }
-
-    private SQLiteDatabase db;
-    private String name;
-
-    private List<User> users = new ArrayList<>();
-
-    private boolean isOpen = false;
 
     public final int USERTYPE_NORMAL = 1;
     public final int USERTYPE_ADMIN  = 2;

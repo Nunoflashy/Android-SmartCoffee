@@ -19,7 +19,7 @@ public class AdminMenuActivity extends AppCompatActivity {
     Button btnAdminLogout;
 
     private void bindControls() {
-        tvAdminName = findViewById(R.id.tvAdminName);
+        tvAdminName         = findViewById(R.id.tvAdminName);
         btnAdminOverview    = findViewById(R.id.btnAdminOverview);
         btnAdminListUsers   = findViewById(R.id.btnAdminListUsers);
         btnAdminSettings    = findViewById(R.id.btnAdminSettings);

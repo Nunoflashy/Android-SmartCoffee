@@ -40,10 +40,10 @@ public class AdminDashboardActivity extends BaseMenubarActivity {
     }
 
     private void init() {
-        userDB.open();
-
+        // Definir o numero de users
         tvUserCount.setText(String.valueOf(userDB.getAll().size()));
 
+        // Atribuir o nome do user ao ultimo registado
         User u = getNewestUser();
         tvNewestUser.setText(u.getName());
 

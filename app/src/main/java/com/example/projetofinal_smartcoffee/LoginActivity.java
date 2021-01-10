@@ -17,8 +17,6 @@ import com.example.projetofinal_smartcoffee.Util.RegistrationManager;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private final boolean DEBUG = false;
-
     EditText tbUsername;
     EditText tbPassword;
 
@@ -57,7 +55,6 @@ public class LoginActivity extends AppCompatActivity {
                 // Se nao existir conta de admin, tornar esta num admin
                 if(!userDB.hasAdminAccount()) {
                     userDB.setUserType(u, UserType.Admin);
-                    MessageBox m = new MessageBox(this);
                     Log.d("UserDB", String.format("A conta %s é agora uma conta de administrador.", u.getName()));
                 }
                 // Detectar o tipo de conta e redirecionar para a activity certa
@@ -78,10 +75,5 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         bindControls();
-
-        if(DEBUG) {
-            tbUsername.setText("admin");
-            tbPassword.setText("admin");
-        }
     }
 }

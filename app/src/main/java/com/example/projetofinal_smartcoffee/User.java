@@ -1,7 +1,5 @@
 package com.example.projetofinal_smartcoffee;
 
-import com.example.projetofinal_smartcoffee.Database.UserType;
-
 import java.io.Serializable;
 
 public class User implements Serializable {
